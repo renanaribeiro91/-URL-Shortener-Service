@@ -1,0 +1,13 @@
+const { database } = require('simple-node-framework').Singleton;
+const mongoose = require('mongoose');
+
+// on database.connections.mongodb.application, application is the conection name. to use another connection change this name
+const connection = database.connections.mongodb ? database.connections.mongodb.application : mongoose || mongoose;
+
+const schema = mongoose.Schema({
+    name: String,
+}, {
+    collection: 'customers'
+});
+
+module.exports = connection.models.Customer || connection.model('Customer', schema);
