@@ -1,37 +1,74 @@
 {
-    "extends": "airbnb-base",
+    "extends": [
+      "prettier",
+      "airbnb-base"
+    ],
     "env": {
-        "browser": true,
-        "node": true,
-        "mocha": true
+      "commonjs": true,
+      "node": true,
+      "mocha": true
     },
-    "plugins": ["chai-friendly"],
+    "plugins": [
+      "prettier",
+      "chai-friendly"
+    ],
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020
+    },
     "rules": {
-        "no-underscore-dangle": "off",
-        "class-methods-use-this": "off",
-        "arrow-body-style": "off",
-        "no-unused-expressions": 0,
-        "chai-friendly/no-unused-expressions": 2,
-        "no-console": "off",
-        "indent": [
-            "error",
-            4,
-            {
-                "SwitchCase": 1
-            }
-        ],
-        "radix": "off",
-        "arrow-parens": "off",
-        "array-callback-return": "off",
-        "comma-dangle": "off",
-        "object-curly-newline": "off",
-        "max-len": ["warn", 250],
-        "import/no-dynamic-require": "off",
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                "devDependencies": true
-            }
-        ]
+      "prettier/prettier": "error",
+      "no-underscore-dangle": "off",
+      "class-methods-use-this": "off",
+      "arrow-body-style": "off",
+      "no-unused-expressions": 0,
+      "chai-friendly/no-unused-expressions": 2,
+      "no-console": "off",
+      "indent": [
+        "error",
+        2
+      ],
+      "radix": "off",
+      "arrow-parens": "off",
+      "array-callback-return": "off",
+      "comma-dangle": "off",
+      "object-curly-newline": "off",
+      "max-len": [
+        "error",
+        {
+          "code": 80,
+          "ignoreTemplateLiterals": true,
+          "ignoreStrings": true,
+          "ignoreUrls": true,
+          "ignorePattern": "^\\s*const\\s.+=\\s*require\\s*\\("
+        }
+      ],
+      "import/no-dynamic-require": "off",
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ],
+      "semi": "off",
+      "no-await-in-loop": "off",
+      "no-use-before-define": "off",
+      "implicit-arrow-linebreak": "off",
+      "function-paren-newline": "off",
+      "operator-linebreak": "off",
+      "no-restricted-syntax": "off",
+      "no-plusplus": "off",
+      "generator-star-spacing": [
+        "error",
+        {
+          "before": false,
+          "after": true,
+          "anonymous": "neither",
+          "method": {
+            "before": true,
+            "after": false
+          }
+        }
+      ]
     }
-}
+  }

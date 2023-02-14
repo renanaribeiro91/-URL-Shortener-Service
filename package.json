@@ -2,11 +2,12 @@
   "name": "encurtador-url",
   "version": "1.0.0",
   "description": "",
+  "author": "Renan",
   "main": "index.js",
   "scripts": {
     "test": "clear;nyc --reporter=html --reporter=lcov --reporter=text-lcov --reporter=text --report-dir=test-reports ./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000",
-    "start": "clear; rm -rf logs/*.log*; nodemon index.js;",
-    "test:dev": "clear;./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000 --watch",
+    "start": "clear; rm -rf logs/*.log*; NODE_ENV=local nodemon index.js;",
+    "test:local": "clear;./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000 --watch",
     "integration": "clear;./node_modules/mocha/bin/mocha ./api/modules/*/test/integration/*.integration.js",
     "lint": "clear; ./node_modules/.bin/eslint api/*",
     "doc:edit": "clear; swagger_swagger_fileName=doc/swagger.yaml swagger project edit",
@@ -16,7 +17,6 @@
     "type": "git",
     "url": "git+https://github.com/diogolmenezes/simple-node-bootstrap.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/diogolmenezes/simple-node-bootstrap/issues"
@@ -24,8 +24,11 @@
   "homepage": "https://github.com/diogolmenezes/simple-node-bootstrap#readme",
   "dependencies": {
     "dotenv": "^16.0.2",
-    "mongoose": "^5.4.19",
-    "simple-node-framework": "^4.0.6"
+    "mongoose": "6.0.12",
+    "nanoid": "^3.3.4",
+    "simple-node-framework": "^4.0.6",
+    "url-exists": "^1.0.3",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",
