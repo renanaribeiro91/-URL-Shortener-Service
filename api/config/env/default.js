@@ -1,59 +1,59 @@
 module.exports = {
-    "app": {
-        "name": "encurtador-url",
-        "baseRoute": "/api",
-        "port": 8091
+    app: {
+        name: 'encurtador-url',
+        baseRoute: '/api',
+        port: 8091
     },
-    "cors": {
-        "preflightMaxAge": 5,
-        "origins": [
-            "*"
+    cors: {
+        preflightMaxAge: 5,
+        origins: [
+            '*'
         ],
-        "allowHeaders": [
-            "x-origin-channel",
-            "x-origin-application",
-            "x-origin-device",
-            "x-identifier"
+        allowHeaders: [
+            'x-origin-channel',
+            'x-origin-application',
+            'x-origin-device',
+            'x-identifier'
         ],
-        "exposeHeaders": []
+        exposeHeaders: []
     },
-    "log": {
-        "debug": true,
-        "bunyan": {
-            "name": "Application",
-            "streams": [
+    log: {
+        debug: true,
+        bunyan: {
+            name: 'Application',
+            streams: [
                 {
-                    "level": "debug",
-                    "type": "rotating-file",
-                    "path": "logs/{hostname}.log",
-                    "period": "1d",
-                    "count": 2
+                    level: 'debug',
+                    type: 'rotating-file',
+                    path: 'logs/{hostname}.log',
+                    period: '1d',
+                    count: 2
                 }
             ]
         }
     },
-    "authorization": {
-        "enabled": true,
-        "basic": {
-            "users": [
+    authorization: {
+        enabled: true,
+        basic: {
+            users: [
                 {
-                    "username": "process.env.SAMPLE_USER",
-                    "password": "process.env.SAMPLE_PASS"
+                    username: 'process.env.SAMPLE_USER',
+                    password: 'process.env.SAMPLE_PASS'
                 }
             ]
         }
     },
-    "origin": {
-        "ignoreExact": [
-            "/"
+    origin: {
+        ignoreExact: [
+            '/'
         ],
-        "ignore": [
-            "/doc/"
+        ignore: [
+            '/doc/'
         ],
-        "require": {
-            "application": true,
-            "channel": true,
-            "device": false
+        require: {
+            application: true,
+            channel: true,
+            device: false
         }
     }
-}
+};

@@ -2,8 +2,23 @@ module.exports = {
     app: {
         name: 'encurtador-url',
         baseRoute: '/api',
-        port: 8091
+        port: process.env.PORT,
+        baseUrl: `http://localhost:${process.env.PORT}`
     },
+    db: {
+        mongodb: {
+            app: {
+                url: process.env.DB_MONGODB_HOST,
+                options: {
+                    minPoolSize: 5,
+                    maxPoolSize: 10,
+                    useNewUrlParser: true,
+                    useUnifiedTopology: true
+                },
+                name: process.env.DB_MONGODB_NAME,
+
+            }
+        } },
     cors: {
         preflightMaxAge: 5,
         origins: [
@@ -37,8 +52,8 @@ module.exports = {
         basic: {
             users: [
                 {
-                    username: 'process.env.SAMPLE_USER',
-                    password: 'process.env.SAMPLE_PASS'
+                    username: process.env.AUTH_USER,
+                    password: process.env.AUTH_PASS
                 }
             ]
         }
