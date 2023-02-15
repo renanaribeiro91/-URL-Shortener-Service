@@ -13,12 +13,12 @@ class Controller extends BaseController {
     async startUrl(req, res, next) {
         super.activateRequestLog(req);
 
-        const { originalUrl } = req.body;
+        const { fullUrl } = req.body;
 
         try {
-            this.log.debug(`Loading customer [${originalUrl}]`);
+            this.log.debug(`Loading customer [${fullUrl}]`);
 
-            const customer = await this.service.start(originalUrl);
+            const customer = await this.service.start(fullUrl);
 
             res.send(200, customer);
 
@@ -34,15 +34,15 @@ class Controller extends BaseController {
     async getUrl(req, res, next) {
         super.activateRequestLog(req);
 
-        const { originalUrl } = req.params;
+        const { hash } = req.params;
 
         try {
-            this.log.debug(`Buscando original URl [${originalUrl}]`);
+            this.log.debug(`Buscando original URl [${hash}]`);
 
-            const url = await this.service.getUrl(originalUrl);
+            const url = await this.service.getUrl(hash);
 
-            if (url) res.redirect(200, url);
-            else res.send(404);
+            if (url) return res.send(200, url);
+            res.send(404, 'Cannot find URL');
 
             return next();
         } catch (error) {

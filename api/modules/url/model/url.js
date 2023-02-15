@@ -6,8 +6,8 @@ const connection = database.connections.mongodb.app || mongoose;
 const MODEL_NAME = 'URLS'; 
 
 const schema = mongoose.Schema(
-    { fullUrl: { type: String, required: true  },
-      shortUrl: { type: String, required: true }
+    { fullUrl: String,
+      hash: String
     },
     {
         collection: MODEL_NAME,
@@ -15,7 +15,7 @@ const schema = mongoose.Schema(
     }
 );
 
-schema.index({ shortUrl: 1 }, { unique: true });
+schema.index({ hash: 1 }, { unique: true });
 
 class UrlModel {
     constructor() {

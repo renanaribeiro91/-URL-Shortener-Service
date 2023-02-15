@@ -13,23 +13,44 @@ class UrlService extends BaseService {
         this.baseUrl = config.app.baseUrl;
     }
 
-    async start(originalUrl) {
-        this.log.debug(`[${originalUrl}]`);
+    async getUrl(hash) {
+        this.log.debug(`[${hash}]`);
 
-        return this.processUrl(originalUrl);
-    }
-
-    async processUrl(originalUrl) {
-        const urlIdCode = nanoid(5);
         try {
-            const shortUrl = `${this.baseUrl}/${urlIdCode}`;   
-            const teste = await this.urlRepository.create(originalUrl,urlIdCode)
-            return shortUrl
+            const url = await this.urlRepository.findHash(hash);
+            if(!url) return
+            return url.fullUrl
+
         } catch (error) {
             this.log.error('Unexpected error', error);
             return error;
         }
     }
+
+    async start(fullUrl) {
+        this.log.debug(`[${fullUrl}]`);
+
+        return this.processUrl(fullUrl);
+    }
+
+    async processUrl(fullUrl) {
+        const HASH = nanoid(5);
+        const SHORTURL = `${this.baseUrl}/${HASH}`;
+
+        try {            
+            const url = await this.urlRepository.findFullUrl(fullUrl)
+
+            if(url) return url.fullUrl
+
+            await this.urlRepository.create(fullUrl,HASH)
+
+            return SHORTURL
+        } catch (error) {
+            this.log.error('Unexpected error', error);
+            return error;
+        }
+    }
+    
 }
 
 module.exports = UrlService;
