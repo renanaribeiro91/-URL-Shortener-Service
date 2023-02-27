@@ -8,20 +8,30 @@ class UrlRepository extends BaseRepository {
         this.UrlModel = new UrlModel().db
     }
 
-    async findFullUrl(fullUrl) {
-        this.log.debug(`Iniciando a busca da url [${fullUrl}]`);
-        return this.UrlModel.findOne({fullUrl });
-    }
-
-    async findHash(hash) {
-        this.log.debug(`Iniciando a busca da url [${hash}]`);
+    async getHash(hash) {
+        this.log.debug(`Iniciando a busca da hash [${hash}]`);
         return this.UrlModel.findOne({hash });
+    }  
+    
+    async getUrl(fullURL) {
+        this.log.debug(`Iniciando a busca da url [${fullURL}]`);
+        return this.UrlModel.findOne({fullURL });
     }
 
-    async create(fullUrl,shortUrl) {
-        this.log.debug(`Iniciando a criação da URL [${fullUrl}]`);
-        return this.UrlModel.create({ fullUrl ,shortUrl});
+    async create(fullURL,hash,shortURL) {
+        this.log.debug(`Iniciando a criação da URL [${fullURL}]`);
+        return this.UrlModel.create({ fullURL ,hash,shortURL});
     }
+
+    async delete(hash) {
+        this.log.debug(`Iniciando a remoção da URL [${fullURL}]`);
+        await this.UrlModel.findOneAndRemove({hash})
+      }
+
+    async set(fullURL,hash) {
+        this.log.debug(`Iniciando a atualização da URL [${fullURL}]`);
+        await this.UrlModel.updateOne({ fullURL ,hash})
+      }
 }
 
 module.exports = UrlRepository;
