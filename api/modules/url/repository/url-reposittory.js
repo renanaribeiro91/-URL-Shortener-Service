@@ -1,37 +1,36 @@
-const { BaseRepository } = require('simple-node-framework').Base;
-const { UrlModel } = require('../model/url');
-
+const { BaseRepository } = require('simple-node-framework').Base
+const { UrlModel } = require('../model/url')
 
 class UrlRepository extends BaseRepository {
-    constructor() {
-        super({ module: UrlRepository.name });
-        this.UrlModel = new UrlModel().db
-    }
+  constructor() {
+    super({ module: UrlRepository.name })
+    this.UrlModel = new UrlModel().db
+  }
 
-    async getHash(hash) {
-        this.log.debug(`Iniciando a busca da hash [${hash}]`);
-        return this.UrlModel.findOne({hash });
-    }  
-    
-    async getUrl(fullURL) {
-        this.log.debug(`Iniciando a busca da url [${fullURL}]`);
-        return this.UrlModel.findOne({fullURL });
-    }
+  async getHash(hash) {
+    this.log.debug(`Buscando a hash: [${hash}]`)
+    return this.UrlModel.findOne({ hash })
+  }
 
-    async create(fullURL,hash,shortURL) {
-        this.log.debug(`Iniciando a criação da URL [${fullURL}]`);
-        return this.UrlModel.create({ fullURL ,hash,shortURL});
-    }
+  async getUrl(fullURL) {
+    this.log.debug(`Buscando a url: [${fullURL}]`)
+    return this.UrlModel.findOne({ fullURL })
+  }
 
-    async delete(hash) {
-        this.log.debug(`Iniciando a remoção da URL [${fullURL}]`);
-        await this.UrlModel.findOneAndRemove({hash})
-      }
+  async create(fullURL, hash, shortURL) {
+    this.log.debug(`Criando a URL: [${fullURL}]`)
+    return this.UrlModel.create({ fullURL, hash, shortURL })
+  }
 
-    async set(fullURL,hash) {
-        this.log.debug(`Iniciando a atualização da URL [${fullURL}]`);
-        await this.UrlModel.updateOne({ fullURL ,hash})
-      }
+  async update(hash, fullURL) {
+    this.log.debug(`Atualizando a URL: [${fullURL}]`)
+    return this.UrlModel.findOneAndUpdate({ hash, fullURL })
+  }
+
+  async delete(hash, fullURL) {
+    this.log.debug(`Removendo a URL: [${fullURL}]`)
+    return this.UrlModel.findOneAndRemove({ hash, fullURL })
+  }
 }
 
-module.exports = UrlRepository;
+module.exports = UrlRepository

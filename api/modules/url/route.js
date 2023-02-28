@@ -8,4 +8,6 @@ const validateURL = require('./middleware/validateUrl');
 const { full } = route.info(__filename);
 
 server.get(`${full}/:hash`, ControllerFactory.build(UrlController, 'get'));
-server.post(`${full}/generate`, validateURL, ControllerFactory.build(UrlController, 'generate'));
+server.post(`${full}/generate`, validateURL, ControllerFactory.build(UrlController, 'create'));
+server.put(`${full}/:hash`, validateURL, ControllerFactory.build(UrlController, 'update'));
+server.del(`${full}/:hash`, validateURL, ControllerFactory.build(UrlController, 'delete'));

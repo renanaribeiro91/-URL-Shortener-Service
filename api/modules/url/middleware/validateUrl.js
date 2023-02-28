@@ -4,9 +4,9 @@ const urlExists = util.promisify(require('url-exists'));
 
 module.exports = async (req, res, next) => {
     try {
-        const { fullUrl } = req.body;
+        const { fullURL } = req.body;
 
-        const isExist = await urlExists(fullUrl);
+        const isExist = await urlExists(fullURL);
 
         if (!isExist) {
             return res.json({ message: 'URL not exist', type: 'failure' });

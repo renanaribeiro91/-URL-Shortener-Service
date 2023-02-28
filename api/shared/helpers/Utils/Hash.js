@@ -1,6 +1,6 @@
 const { BaseService } = require('simple-node-framework').Base;
 const { nanoid } = require('nanoid');
-const UrlRepository = require('../../modules/url/repository/url-reposittory.js');
+const UrlRepository = require('../../../modules/url/repository/url-reposittory.js');
 
 
 class HashService extends BaseService {
