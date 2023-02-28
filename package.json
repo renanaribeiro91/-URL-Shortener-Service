@@ -27,6 +27,7 @@
     "mongoose": "6.0.12",
     "nanoid": "^3.3.4",
     "simple-node-framework": "^4.0.6",
+    "sinon-chai": "^3.7.0",
     "url-exists": "^1.0.3",
     "util": "^0.12.5"
   },

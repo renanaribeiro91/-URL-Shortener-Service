@@ -4484,6 +4484,11 @@
   dependencies:
     "semver" "~7.0.0"
 
+"sinon-chai@^3.7.0":
+  "integrity" "sha512-mf5NURdUaSdnatJx3uhoBOrY9dtL19fiOtAdT1Azxg3+lNJFiuN0uzaU3xX1LeAfL17kHQhTAJgpsfhbMJMY2g=="
+  "resolved" "https://registry.npmjs.org/sinon-chai/-/sinon-chai-3.7.0.tgz"
+  "version" "3.7.0"
+
 "sinon@^7.3.0":
   "integrity" "sha512-AoD0oJWerp0/rY9czP/D6hDTTUYGpObhZjMpd7Cl/A6+j0xBE+ayL/ldfggkBXUs0IkvIiM1ljM8+WkOc5k78Q=="
   "resolved" "https://registry.npmjs.org/sinon/-/sinon-7.5.0.tgz"
