@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
         const isExist = await urlExists(fullURL);
 
         if (!isExist) {
-            return res.json({ message: 'URL not exist', type: 'failure' });
+            return res.send({ message: 'URL not exist', type: 'failure' });
         }
         return next();
     } catch (error) {
