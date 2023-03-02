@@ -1,5 +1,6 @@
-version: "2.4"
+version: '2.4'
 services:
+
   mongo:
     image: mongo:4.4
     restart: always
@@ -8,8 +9,6 @@ services:
       - 27017:27017
     environment:
       MONGO_INITDB_DATABASE: desafio-encurtador-url
-
-      
     volumes:
-      - "$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
+      - '$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/'
     command: mongod

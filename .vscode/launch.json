@@ -35,21 +35,37 @@
             "name": "Debug Unit Test",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-            "args": [
-                "${workspaceFolder}/api/**/*.unit.js",
-                "--no-timeouts"
-            ]
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "test:unit"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "openOnFirstSessionStart",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "env": {
+                "NODE_ENV": "testing"
+            }
         },
         {
             "name": "Debug Integrated Test",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-            "args": [
-                "${workspaceFolder}/api/modules/**/*.integration.js",
-                "--no-timeouts"
-            ]
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "test:integration"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "openOnFirstSessionStart",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "env": {
+                "NODE_ENV": "testing"
+            }
         }
     ]
 }

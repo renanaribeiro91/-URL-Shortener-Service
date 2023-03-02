@@ -5,10 +5,11 @@
   "author": "Renan",
   "main": "index.js",
   "scripts": {
-    "test": "clear;nyc --reporter=html --reporter=lcov --reporter=text-lcov --reporter=text --report-dir=test-reports ./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000",
     "start": "clear; rm -rf logs/*.log*; NODE_ENV=local nodemon index.js;",
-    "test:local": "clear;./node_modules/mocha/bin/mocha ./api/modules/*/test/unit/*.unit.js --timeout 12000 --watch",
-    "integration": "clear;./node_modules/mocha/bin/mocha ./api/modules/*/test/integration/*.integration.js",
+    "test": "npm run test:unit:coverage && npm run test:integration",
+    "test:unit": "NODE_ENV=testing mocha './api/**/*.unit.js' --timeout 12000",
+    "test:unit:coverage": "NODE_ENV=testing nyc --reporter=html --reporter=text --report-dir=test-reports mocha './api/**/*.unit.js' --timeout 12000",
+    "test:integration": "NODE_ENV=testing mocha ./api/modules/**/*.integration*.js",
     "lint": "clear; ./node_modules/.bin/eslint api/*",
     "doc:edit": "clear; swagger_swagger_fileName=doc/swagger.yaml swagger project edit",
     "doc:update": "clear; js-yaml doc/swagger.yaml > doc/swagger.json"
@@ -26,6 +27,7 @@
     "dotenv": "^16.0.2",
     "mongoose": "6.0.12",
     "nanoid": "^3.3.4",
+    "nock": "^13.3.0",
     "simple-node-framework": "^4.0.6",
     "sinon-chai": "^3.7.0",
     "url-exists": "^1.0.3",
