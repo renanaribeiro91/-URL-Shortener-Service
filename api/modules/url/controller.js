@@ -9,13 +9,11 @@ class UrlController extends BaseController {
 
   async get(req, res, next) {
     super.activateRequestLog(req)
-    this.log.debug(`Iniciando a busca da original URl com a hash:[${hash}]`)
+    // this.log.debug(`Iniciando a busca da original URl com a hash:[${hash}]`)
 
     const { hash } = req.params
 
     try {
-      
-
       const url = await this.urlService.get(hash)
 
       if (url) return res.send(200, url)
@@ -24,35 +22,38 @@ class UrlController extends BaseController {
       return next()
     } catch (error) {
       this.log.error('Erro ao buscar URL', error)
-      res.send(500, 'Unexpected error')
+      res.send(500, {
+        message: 'Unexpected error'
+      })
       return next()
     }
   }
 
-  async create(req, res, next) {
+  async generate(req, res, next) {
     super.activateRequestLog(req)
-    this.log.debug(`Iniciando a geração da URl curta:[${fullUrl}]`)
+    // this.log.debug(`Iniciando a geração da URl curta:[${fullURL}]`)
 
-    const { fullUrl } = req.body
+    const { fullURL } = req.body
 
     try {
-      const url = await this.urlService.create(fullUrl)
+      const url = await this.urlService.generate(fullURL)
 
-      if (url) return res.send(200, url)
+      if (url) return res.send(201, url)
       res.send(400, { message: 'URL already exists' })
 
       return next()
     } catch (error) {
-      this.log.error('Unexpected error on load', error)
-      res.send(500, 'Unexpected error')
+      this.log.error('Erro ao gerar url', error)
+      res.send(500, {
+        message: 'Unexpected error'
+      })
       return next()
     }
   }
 
   async update(req, res, next) {
     super.activateRequestLog(req)
-    this.log.debug(`Iniciando a atualização da original URl com a hash:[${hash}]`)
-    
+    // this.log.debug(`Iniciando a atualização da original URl com a hash:[${hash}]`)
 
     const { hash } = req.params
     const { fullURL } = req.body
@@ -71,7 +72,7 @@ class UrlController extends BaseController {
 
       return next()
     } catch (error) {
-      this.log.error('Erro inesperado ao Atualizar', error)
+      // this.log.error('Erro inesperado ao Atualizar', error)
       res.send(500, { message: 'Unexpected error' })
       return next()
     }
@@ -79,13 +80,13 @@ class UrlController extends BaseController {
 
   async delete(req, res, next) {
     super.activateRequestLog(req)
-    this.log.debug(`Iniciando a remoção da original URl com a hash:[${hash}]`)
+    // this.log.debug(`Iniciando a remoção da original URl com a hash:[${hash}]`)
 
     const { hash } = req.params
-    const { fullURL } = req.body
+
 
     try {
-      const url = await this.urlService.delete(hash, fullURL)
+      const url = await this.urlService.delete(hash)
 
       if (url) {
         res.send(202)
@@ -98,7 +99,7 @@ class UrlController extends BaseController {
 
       return next()
     } catch (error) {
-      this.log.error('Erro inesperado ao Deletar', error)
+      // this.log.error('Erro inesperado ao Deletar', error)
       res.send(500, { message: 'Unexpected error' })
       return next()
     }
