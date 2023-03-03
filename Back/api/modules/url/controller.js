@@ -16,7 +16,10 @@ class UrlController extends BaseController {
     try {
       const url = await this.urlService.get(hash)
 
-      if (url) return res.send(200, url)
+      if (url) {
+        return res.redirect(url, next)
+        
+      }
       res.send(404, { code: 'NOT_FOUND', message: 'Cannot find URL this hash' })
 
       return next()
@@ -83,7 +86,6 @@ class UrlController extends BaseController {
     // this.log.debug(`Iniciando a remoção da original URl com a hash:[${hash}]`)
 
     const { hash } = req.params
-
 
     try {
       const url = await this.urlService.delete(hash)

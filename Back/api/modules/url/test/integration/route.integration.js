@@ -6,13 +6,12 @@ const { config } = require('simple-node-framework').Singleton
 
 const { onDbConnected } = require('../../../../shared/tests/test-helper')
 
-
-
 function callGetAPI(server, hash) {
   return supertest(server)
     .get(`/api/url/${hash}`)
     .set('x-origin-application', 'integration-test')
     .set('x-origin-channel', 'integration-test')
+    .redirects(1)
 }
 
 function callPostAPI(server, body) {
@@ -72,10 +71,9 @@ describe('Integration -> URL', () => {
 
       const hash = 'abc123'
 
-      const { status, body } = await callGetAPI(server, hash)
+      const { req } = await callGetAPI(server, hash)
 
-      expect(status).is.eq(200)
-      expect(body).to.be.deep.eq('www.fakeURL.com')
+      expect(req._header).to.contain('www.fakeURL.com')
     })
 
     it('Should returns 404 if url not exist.', async () => {
@@ -141,8 +139,8 @@ describe('Integration -> URL', () => {
 
       expect(status).is.eq(200)
       expect(body).to.be.deep.eq({
-        fullURL: "https://www.youtube.com/watch?v=crkg70WiA7A",
-        shortURL: "www.fakeURL.com/abc123",
+        fullURL: 'https://www.youtube.com/watch?v=crkg70WiA7A',
+        shortURL: 'www.fakeURL.com/abc123'
       })
     })
 
@@ -195,8 +193,8 @@ describe('Integration -> URL', () => {
 
       expect(status).is.eq(404)
       expect(body).to.be.deep.eq({
-        code: "NOT_FOUND",
-        message: "Cannot find URL this hash",
+        code: 'NOT_FOUND',
+        message: 'Cannot find URL this hash'
       })
     })
   })

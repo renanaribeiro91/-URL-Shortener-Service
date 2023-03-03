@@ -18,8 +18,8 @@ describe('Controllers -> UrlController', () => {
     it('Should reply 200 when success.', async () => {
       const sut = makeSUT()
 
-      const send = sandbox.spy()
       const next = sandbox.spy()
+      const redirect = sandbox.spy()
 
       const req = {
         params: 'fakeHash'
@@ -31,12 +31,10 @@ describe('Controllers -> UrlController', () => {
 
       sandbox.stub(sut.urlService, 'get').resolves(result)
 
-      await sut.get(req, { send }, next)
+      await sut.get(req, { redirect }, next)
 
-      const status = send.args[0][0]
-      const body = send.args[0][1]
+      const body = redirect.args[0][0]
 
-      expect(status).to.be.eq(200)
       expect(body).to.be.deep.eq(result)
     })
 
