@@ -4,48 +4,59 @@ This is encurtador-url that uses [simple-node-framework](https://github.com/diog
 
 ## Tasks
 
-Task | Description
------------- | -------------
-npm start | starts the application
-npm test  | run unit tests
-npm run test:dev | run unit tests without execute nyc report
-npm run integration | run integration tests
-npm run lint | run eslint
-npm run doc:edit | open user interface to edit swagger.yaml file
-npm run doc:update | build and update the documentation, do this after change the swagger.yaml and your http://localhost:8091/doc/ will be updated
+| Task      | Description            |
+| --------- | ---------------------- |
+| npm start | starts the application |
+| npm test  | run tests              |
 
-## Output
+rodar o compose up para subir o banco de dados mongo
 
-The initial simple-node-framework project structure:
+# Encurtador de URL (estilo bitly) - [bitly](https://bitly.com/)
 
-File | Description
------------- | -------------
-.vscode/launch.json | This file sets up the launch configuration for vscode debuger. By default you can debug appplication using default, staging or production envs ( located at /api/config/env ). And debug unit and integrated tests.
-api/ | This is your api main folder
-api/config/ | This is your api main folder
-api/config/custom-server.js | Simple node framework server
-api/config/env | All configuration files
-api/config/env/default.json | Configuration file for the default environment (localhost)
-api/config/env/testing.json | Configuration file for the testing environment
-api/config/env/staging.json | Configuration file for the staging environment
-api/config/env/production.json | Configuration file for the production environment
-api/modules/ | This is your module folder, create your modules here (Ex.: customer, account, profile)
-api/modules/sample-module/ | Sample module to make learning easy
-api/modules/sample-module/module/ | Models folder, like moongoose model
-api/modules/sample-module/module/customer.js | Sample of customer mongoose model
-api/modules/sample-module/repository/ | Repository folder, here you do the database logic
-api/modules/sample-module/repository/customer-repository.js | Sample of customer repository
-api/modules/sample-module/service/ | Service folder, here you do all your business logic here
-api/modules/sample-module/service/customer-service.js | Sample of customer service
-api/modules/sample-module/test/ | Unit and integration tests
-api/modules/sample-module/test/unit/ | Unit tests
-api/modules/sample-module/test/unit/controller.unit.js | Sample of controller unit test
-api/modules/sample-module/test/integration/ | Integration tests
-api/modules/sample-module/test/integration/controller.integration.js | Sample of integration test
-api/modules/sample-module/controller.js | Sample of controller
-api/modules/sample-module/route.js | Sample of route mapping
-api/doc/ | Documentation folder. This folder is served by framework at http://localhost:8091/doc/
-api/doc/swagger.yaml | Change your api documentation. After change, execute *npm run doc:update* task
-api/logs/ | Your application logs will be saved here
-api/.eslintrc.json | Eslint suggestion file
-api/index.json | Entry point of application
+### GET /{uuid}
+
+```js
+//GET
+// http://localhost:8080/qyzrtwptgj
+
+//RESPONSE
+// http://google.com
+```
+
+### POST /generate
+
+```js
+//POST
+body = {
+  url: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.cloudflare.steamstatic.com%2Fsteam%2Fapps%2F1092300%2Fss_d6d81ad77f40ab58aaf7f636f9b4fadefc658b94.1920x1080.jpg%3Ft%3D1577170099&imgrefurl=https%3A%2F%2Fstore.steampowered.com%2Fapp%2F1092300%2FDrone_Racer%2F%3Fl%3Dbrazilian&tbnid=iycFgSi3GX2-bM&vet=12ahUKEwjQ17De_uL8AhVrLLkGHYgAA2YQMygsegUIARCxAw..i&docid=2_FsbHDUb66p5M&w=1920&h=1080&itg=1&q=drone%20racer&ved=2ahUKEwjQ17De_uL8AhVrLLkGHYgAA2YQMygsegUIARCxAw'
+}
+
+//Ex. response
+body = {
+  url: 'http://localhost:8080/qyzrtwptgj'
+}
+```
+
+### PUT /{uuid}
+
+```js
+//put
+// www.google.com
+
+//Ex. response
+body = {
+  fullURL:
+    'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.cloudflare.steamstatic.com%2Fsteam%2Fapps%2F1092300%2Fss_d6d81ad77f40ab58aaf7f636f9b4fadefc658b94.1920x1080.jpg%3Ft%3D1577170099&imgrefurl=https%3A%2F%2Fstore.steampowered.com%2Fapp%2F1092300%2FDrone_Racer%2F%3Fl%3Dbrazilian&tbnid=iycFgSi3GX2-bM&vet=12ahUKEwjQ17De_uL8AhVrLLkGHYgAA2YQMygsegUIARCxAw..i&docid=2_FsbHDUb66p5M&w=1920&h=1080&itg=1&q=drone%20racer&ved=2ahUKEwjQ17De_uL8AhVrLLkGHYgAA2YQMygsegUIARCxAw',
+  shortURL: 'http://localhost:8080/qyzrtwptgj'
+}
+```
+
+### del /{uuid}
+
+```js
+//del
+// http://localhost:8080/qyzrtwptgj
+
+//RESPONSE
+// {}
+```
