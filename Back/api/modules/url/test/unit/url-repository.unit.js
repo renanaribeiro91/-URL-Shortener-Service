@@ -34,7 +34,7 @@ describe('UrlRepository', () => {
       const fullURL = 'www.fakeURL.com/urlLongaDemais'
       const urlStub = sandbox.stub(sut.urlModel, 'findOne').returns(fullURL)
 
-      await sut.getUrl(fullURL)
+      await sut.getFullUrl(fullURL)
 
       expect(urlStub).have.been.calledWith({ fullURL: fullURL })
     })
@@ -55,7 +55,7 @@ describe('UrlRepository', () => {
       }
       const urlStub = sandbox.stub(sut.urlModel, 'create').returns(data)
 
-      await sut.create(fullURL, hash, shortURL)
+      await sut.create(data)
 
       expect(urlStub).have.been.calledWith(data)
     })
@@ -77,7 +77,7 @@ describe('UrlRepository', () => {
         .stub(sut.urlModel, 'findOneAndUpdate')
         .returns(data)
 
-      await sut.update(hash, newFullURL)
+      await sut.update(data)
 
       expect(urlStub).have.been.calledWith(
         { hash: 'abc123' },

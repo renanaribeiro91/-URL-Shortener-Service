@@ -22,7 +22,8 @@ describe('Services -> UrlService', () => {
       const fullURL = 'wwww.fakeURL.com'
       const hash = 'adc123'
       const getMock = {
-        fullURL: fullURL
+        fullURL: fullURL,
+        shortURL: 'wwww.localhost.com/abc123'
       }
 
       const urlStub = sandbox
@@ -32,7 +33,7 @@ describe('Services -> UrlService', () => {
       const result = await sut.get(hash)
 
       expect(urlStub.calledOnce).to.be.ok
-      expect(result).is.deep.eq('wwww.fakeURL.com')
+      expect(result).is.deep.eq(getMock)
     })
 
     it('Should be returns null if not exist hash', async () => {
@@ -40,9 +41,6 @@ describe('Services -> UrlService', () => {
 
       const fullURL = 'wwww.fakeURL.com'
       const hash = 'adc123'
-      const getMock = {
-        fullURL: fullURL
-      }
 
       const urlStub = sandbox
         .stub(sut.hashService, 'getUrlByHash')
@@ -76,18 +74,19 @@ describe('Services -> UrlService', () => {
 
       const fullURL = 'wwww.fakeURL.com'
 
-      const createMock = {
-        fullURL: fullURL
+      const generateMock = {
+        fullURL: fullURL,
+        shortURL: 'wwww.localhost.com/abc123'
       }
 
-      sandbox.stub(sut.urlRepository, 'getUrl').resolves(null)
-      sandbox.stub(sut.urlRepository, 'create').resolves(createMock)
+      sandbox.stub(sut, '_getUrl').resolves(null)
+      sandbox.stub(sut.urlRepository, 'create').resolves(generateMock)
 
       const result = await sut.generate(fullURL)
-      const hash = result.substr(22)
+      // const hash = result.substr(22)
       const baseURL = config.app.baseUrl
 
-      expect(result).is.deep.eq(`${baseURL}/${hash}`)
+      expect(result).is.deep.eq(generateMock)
     })
 
     it('Should returns null if fullURL already exist', async () => {
@@ -96,10 +95,11 @@ describe('Services -> UrlService', () => {
       const fullURL = 'wwww.fakeURL.com'
 
       const getMock = {
-        fullURL: fullURL
+        fullURL: fullURL,
+        shortURL: 'wwww.localhost.com/abc123'
       }
 
-      sandbox.stub(sut.urlRepository, 'getUrl').resolves(getMock)
+      sandbox.stub(sut, '_getUrl').resolves(getMock)
 
       const result = await sut.generate(fullURL)
 
@@ -112,7 +112,7 @@ describe('Services -> UrlService', () => {
       const mockError = new Error('Erro ao buscar URL')
       const fullURL = 'wwww.fakeURL.com'
 
-      sandbox.stub(sut.urlRepository, 'getUrl').rejects(mockError)
+      sandbox.stub(sut, '_getUrl').rejects(mockError)
 
       try {
         await sut.generate(fullURL)
@@ -223,6 +223,100 @@ describe('Services -> UrlService', () => {
       } catch (error) {
         expect(error).to.be.deep.eq('Erro ao buscar hash')
       }
+    })
+  })
+
+  describe('_getUrl', () => {
+    it('Should get url by getFullUrl', async () => {
+      const sut = makeSUT()
+
+      const fullURL = 'wwww.fakeURL.com'
+
+      const generateEndPoint = true
+      const getMock = {
+        hash: 'adc123',
+        fullURL: 'wwww.fakeURL.com',
+        shortURL: 'www.localhost.com/abc123'
+      }
+      sandbox.stub(sut.urlRepository, 'getFullUrl').resolves(getMock)
+
+      const result = await sut._getUrl(null, fullURL, generateEndPoint)
+
+      expect(result).is.deep.eq(getMock)
+    })
+
+    it('Should get url by getUrlByHash', async () => {
+      const sut = makeSUT()
+
+      const fullURL = 'wwww.fakeURL.com'
+      const hash = 'adc123'
+
+      const getMock = {
+        hash: 'adc123',
+        fullURL: 'wwww.fakeURL.com',
+        shortURL: 'www.localhost.com/abc123'
+      }
+
+      sandbox.stub(sut.hashService, 'getUrlByHash').resolves(getMock)
+
+      const result = await sut._getUrl(hash)
+
+      expect(result).is.deep.eq(getMock)
+    })
+  })
+  describe('_create', () => {
+    it('Should be _create shordata url', async () => {
+      const sut = makeSUT()
+
+      const fullURL = 'wwww.fakeURL.com'
+      const hash = 'abc123'
+      const shortURL = 'wwww.localhost.com/abc123'
+
+      const dataMock = {
+        fullURL: 'wwww.fakeURL.com',
+        hash: 'abc123',
+        shortURL: 'wwww.localhost.com/abc123'
+      }
+
+      sandbox.stub(sut.hashService, 'generateHash').resolves(hash)
+      sandbox.stub(sut, '_generateShortURL').resolves(shortURL)
+      sandbox.stub(sut.urlRepository, 'create').resolves(dataMock)
+
+      const result = await sut._create(fullURL)
+
+      expect(result).is.deep.eq(dataMock)
+    })
+  })
+
+  describe('_generateShortURL', () => {
+    it('Should be _create shordata url', async () => {
+      const sut = makeSUT()
+
+      const hash = 'abc123'
+      const baseURL = config.app.baseUrl
+
+      const result = await sut._generateShortURL(hash)
+
+      expect(result).is.deep.eq(`${baseURL}/${hash}`)
+    })
+  })
+
+  describe('_urlData', () => {
+    it('Should be _create shordata url', async () => {
+      const sut = makeSUT()
+
+      const dataMock = {
+        fullURL: 'wwww.fakeURL.com',
+        hash: 'abc123',
+        shortURL: 'wwww.localhost.com/abc123'
+      }
+
+      const result = await sut._urlData(dataMock)
+
+      expect(result).is.deep.eq({
+        fullURL: 'wwww.fakeURL.com',
+        shortURL: 'wwww.localhost.com/abc123'
+      })
     })
   })
 })

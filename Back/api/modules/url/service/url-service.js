@@ -13,74 +13,87 @@ class UrlService extends BaseService {
 
   async get(hash) {
     try {
-      const urlExist = await this.hashService.getUrlByHash(hash)
-      if (!urlExist) {
-        // this.log.debug(`URL não encontrada com a hash de:[${hash}]`)
-        return null
-      }
-      // this.log.debug(`Busca de URL realizada:[${urlExist.fullURL}]`)
-      return urlExist.fullURL
+      const urlExist = await this._getUrl(hash)
+      return this._urlData(urlExist)
     } catch (error) {
-      // this.log.error('Erro inesperado', error)
+      this.log.error('Erro inesperado', error)
       return error
     }
   }
 
   async generate(fullURL) {
-    const hash = await this.hashService.generateHash()
-    const shortURL = await this.generateshortURL(hash)
+    const generateEndPoint = true
 
     try {
-      const urlExist = await this.urlRepository.getUrl(fullURL)
+      const urlExist = await this._getUrl(null, fullURL, generateEndPoint)
       if (urlExist) {
-        // this.log.debug(`URL existente`)
+        this.log.debug(`URL já existente`)
         return null
       }
-      await this.urlRepository.create(fullURL, hash, shortURL)
-      return shortURL
+      const url = await this._create(fullURL)
+      return this._urlData(url)
     } catch (error) {
-      // this.log.error('Erro inesperado', error)
+      this.log.error('Erro inesperado', error)
       return error
     }
   }
 
   async update(hash, fullURL) {
     try {
-      const urlExist = await this.hashService.getUrlByHash(hash)
-
+      const urlExist = await this._getUrl(hash)
       if (!urlExist) {
-        // this.log.debug(`URL não encontrada com a hash de:[${hash}]`)
+        this.log.debug(`URL não encontrada com a hash de:[${hash}]`)
         return null
       }
-      const url = await this.urlRepository.update(hash, fullURL)
+      const data = { hash, fullURL }
+      const url = await this.urlRepository.update(data)
 
-      return {
-        fullURL: url.fullURL,
-        shortURL: url.shortURL
-      }
+      return this._urlData(url)
     } catch (error) {
-      // this.log.error('Erro inesperado', error)
+      this.log.error('Erro inesperado', error)
       return error
     }
   }
 
-  async delete(hash, fullURL) {
+  async delete(hash) {
     try {
-      const urlExist = await this.hashService.getUrlByHash(hash)
-
+      const urlExist = await this._getUrl(hash)
       if (!urlExist) {
-        // this.log.debug(`URL não encontrada com a hash de:[${hash}]`)
+        this.log.debug(`URL não encontrada com a hash de:[${hash}]`)
         return null
       }
       return this.urlRepository.delete(hash)
     } catch (error) {
-      // this.log.error('Erro inesperado', error)
+      this.log.error('Erro inesperado', error)
       return error
     }
   }
 
-  async generateshortURL(hash) {
+  _getUrl(hash, fullURL, generateEndPoint = false) {
+    if (generateEndPoint) {
+      return this.urlRepository.getFullUrl(fullURL)
+    }
+    return this.hashService.getUrlByHash(hash)
+  }
+
+  async _create(fullURL) {
+    const hash = await this.hashService.generateHash()
+    const shortURL = await this._generateShortURL(hash)
+    const data = { fullURL, hash, shortURL }
+
+    return this.urlRepository.create(data)
+  }
+
+  _generateShortURL(hash) {
     return `${this.baseUrl}/${hash}`
+  }
+
+  _urlData(url) {
+    if (!url) return null
+    return {
+      fullURL: url.fullURL,
+      shortURL: url.shortURL
+    }
   }
 }
 

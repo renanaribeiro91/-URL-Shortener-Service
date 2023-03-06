@@ -25,7 +25,8 @@ describe('Middleware -> urlExists', () => {
     }
 
     expect(dados).to.be.deep.eq({
-      message: 'URL not exist',
+      code: 'NOT_EXIST',
+      message: 'URL not exist, try again',
       type: 'failure'
     })
     expect(next).not.to.be.called

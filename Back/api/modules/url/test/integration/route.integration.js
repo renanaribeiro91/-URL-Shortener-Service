@@ -119,7 +119,10 @@ describe('Integration -> URL', () => {
       })
 
       expect(status).is.eq(400)
-      expect(body).to.be.deep.eq({ message: 'URL already exists' })
+      expect(body).to.be.deep.eq({
+        code: "NOT_GENERATE",
+        message: "URL already exists",
+      })
     })
   })
 

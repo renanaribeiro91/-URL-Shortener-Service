@@ -8,22 +8,24 @@ class UrlRepository extends BaseRepository {
   }
 
   async getHash(hash) {
-    // this.log.debug(`Buscando a hash: [${hash}]`)
+    this.log.debug(`Buscando a hash: [${hash}]`)
     return this.urlModel.findOne({ hash })
   }
 
-  async getUrl(fullURL) {
-    // this.log.debug(`Buscando a url: [${fullURL}]`)
+  async getFullUrl(fullURL) {
+    this.log.debug(`Buscando a URL: [${fullURL}]`)
     return this.urlModel.findOne({ fullURL })
   }
 
-  async create(fullURL, hash, shortURL) {
-    // this.log.debug(`Criando a URL: [${fullURL}]`)
+  async create(data) {
+    const {fullURL, hash, shortURL} = data
+    this.log.debug(`Criando a URL: [${fullURL}]`)
     return this.urlModel.create({ fullURL, hash, shortURL })
   }
 
-  async update(hash, fullURL) {
-    // this.log.debug(`Atualizando a URL: [${fullURL}]`)
+  async update(data) {
+    const {hash, fullURL} = data    
+    this.log.debug(`Atualizando a URL: [${fullURL}]`)
 
     return this.urlModel.findOneAndUpdate(
       { hash },
@@ -33,7 +35,7 @@ class UrlRepository extends BaseRepository {
   }
 
   async delete(hash) {
-    // this.log.debug(`Removendo a URL: [${fullURL}]`)
+    this.log.debug(`Removendo a URL com a hash: [${hash}]`)
     return this.urlModel.findOneAndRemove({ hash })
   }
 }

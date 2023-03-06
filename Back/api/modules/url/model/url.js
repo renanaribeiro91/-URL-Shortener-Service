@@ -1,11 +1,8 @@
 const { database } = require('simple-node-framework').Singleton
 const mongoose = require('mongoose')
 
-const connection = database.connections?.mongodb?.app || mongoose;
-// const connection =
-//   database.config.app.env != 'default' && database.config.app.env != 'testing'
-//     ? database.connections.mongodb?.app
-//     : mongoose
+const connection = database.connections?.mongodb?.app || mongoose
+
 const MODEL_NAME = 'URLS'
 
 const schema = mongoose.Schema(
@@ -20,7 +17,6 @@ const schema = mongoose.Schema(
   }
 )
 
-schema.index({ fullURL: 1 }, { unique: true })
-schema.index({ hash: 1 }, { unique: true })
+schema.index({ hash: 1, fullURL: 1 }, { unique: true })
 
 module.exports = connection.model(MODEL_NAME, schema)

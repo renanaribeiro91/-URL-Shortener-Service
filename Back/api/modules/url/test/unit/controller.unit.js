@@ -35,7 +35,7 @@ describe('Controllers -> UrlController', () => {
 
       const body = redirect.args[0][0]
 
-      expect(body).to.be.deep.eq(result)
+      expect(body).to.be.deep.eq(result.fullURL)
     })
 
     it('Should reply 404 when hash not founded.', async () => {
@@ -81,7 +81,8 @@ describe('Controllers -> UrlController', () => {
 
       expect(status).to.be.eq(500)
       expect(body).to.be.deep.eq({
-        message: 'Unexpected error'
+        code: "UNEXPECTED",
+        message: "Unexpected Error",
       })
     })
   })
@@ -99,7 +100,8 @@ describe('Controllers -> UrlController', () => {
       }
 
       const result = {
-        fullURL: 'www.fakeURL.com'
+        fullURL: 'www.fakeURL.com',
+        shortURL: 'www.localhost:port/fakeHash'
       }
 
       sandbox.stub(sut.urlService, 'generate').resolves(result)
@@ -110,7 +112,7 @@ describe('Controllers -> UrlController', () => {
       const body = send.args[0][1]
 
       expect(status).to.be.eq(201)
-      expect(body).to.be.eq(result)
+      expect(body).to.be.eq(result.shortURL)
     })
 
     it('Should reply 400 when URL already exists.', async () => {
@@ -155,7 +157,8 @@ describe('Controllers -> UrlController', () => {
 
       expect(status).to.be.eq(500)
       expect(body).to.be.deep.eq({
-        message: 'Unexpected error'
+        code: "UNEXPECTED",
+        message: "Unexpected Error",
       })
     })
   })
@@ -232,7 +235,8 @@ describe('Controllers -> UrlController', () => {
 
       expect(status).to.be.eq(500)
       expect(body).to.be.deep.eq({
-        message: 'Unexpected error'
+        code: "UNEXPECTED",
+        message: "Unexpected Error",
       })
     })
   })
@@ -303,7 +307,8 @@ describe('Controllers -> UrlController', () => {
 
       expect(status).to.be.eq(500)
       expect(body).to.be.deep.eq({
-        message: 'Unexpected error'
+        code: "UNEXPECTED",
+        message: "Unexpected Error",
       })
     })
   })
