@@ -1,17 +1,54 @@
 swagger: "2.0"
 info:
-  description: "Description of your application"
+  description: "Projeto de encurtador de URL"
   version: "1.0.0"
-  title: "My application"
+  title: "Encurtador de URL"
   contact:
-    email: "your@mail.com"
+    email: "renan.admribeiro@mail.com"
 host: "localhost:8091"
 basePath: "/api"
 schemes:
 - "http"
 paths:
-  /sample-module/{name}:
+  /url/{hash}:
     get:
+      summary: >-
+        Redireciona para a url original
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: "name"
+        description: "Redireciona para a url original" 
+      responses:
+        200:
+          description: "Sucesso no redirecionamento para url original"
+        404:
+          description: "Hash não encontrada na base de dados"
+        500:
+          description: "Erro inesperado"
+  /url/generate:
+    post:
+      summary: "generate shortURL"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: "name"
+        description: "Gera uma url curta com base na url original" 
+      responses:
+        201:
+          description: "Gera uma url com sucesso"
+        404:
+          description: "Hash não encontrada na base de dados"
+        500:
+          description: "Erro inesperado"
+  /url/{hash}:
+    put:
       summary: "Loads a customer by the name"
       consumes:
       - "application/json"
@@ -20,16 +57,32 @@ paths:
       parameters:
       - in: path
         name: "name"
-        description: "Name of customer"
-        required: true
-        type: string      
+        description: "Atualiza a url original" 
       responses:
         200:
-          description: "Customer loaded"
+          description: "Atualiza url com sucesso"
+        404:
+          description: "Hash não encontrada na base de dados"
+        500:
+          description: "Erro inesperado"
+  /url/{hash}:
+    del:
+      summary: "Deleta a url"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: "name"
+        description: "redirect by original URL" 
+      responses:
+        202:
+          description: "Deleta url com sucesso"
         404:
           description: "Not found"
         500:
-          description: "Internal Server Error"
+          description: "Internal Server Error"                    
 externalDocs:
   description: "My application"
   url: "http://swagger.io"

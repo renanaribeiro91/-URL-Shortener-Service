@@ -1,15 +1,15 @@
 # encurtador-url
 
-This is encurtador-url that uses [simple-node-framework](https://github.com/diogolmenezes/simple-node-framework), [write your application description here]
+This is encurtador-url that uses [simple-node-framework](https://github.com/diogolmenezes/simple-node-framework)
 
-## Tasks
+## Run
+
+Rodar o compose up para subir o banco de dados mongo \*\*\*
 
 | Task      | Description            |
 | --------- | ---------------------- |
 | npm start | starts the application |
 | npm test  | run tests              |
-
-rodar o compose up para subir o banco de dados mongo
 
 # Encurtador de URL (estilo bitly) - [bitly](https://bitly.com/)
 
