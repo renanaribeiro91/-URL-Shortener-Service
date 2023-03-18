@@ -26,9 +26,8 @@ describe('Services -> UrlService', () => {
         shortURL: 'wwww.localhost.com/abc123'
       }
 
-      const urlStub = sandbox
-        .stub(sut.hashService, 'getUrlByHash')
-        .resolves(getMock)
+      const urlStub = sandbox.stub(sut, '_getUrl').resolves(getMock)
+      sandbox.stub(sut, '_incrementHitsClick')
 
       const result = await sut.get(hash)
 
@@ -39,12 +38,10 @@ describe('Services -> UrlService', () => {
     it('Should be returns null if not exist hash', async () => {
       const sut = makeSUT()
 
-      const fullURL = 'wwww.fakeURL.com'
       const hash = 'adc123'
 
-      const urlStub = sandbox
-        .stub(sut.hashService, 'getUrlByHash')
-        .resolves(null)
+      const urlStub = sandbox.stub(sut, '_getUrl').resolves(null)
+      sandbox.stub(sut, '_incrementHitsClick')
 
       const result = await sut.get(hash)
 
@@ -83,7 +80,6 @@ describe('Services -> UrlService', () => {
       sandbox.stub(sut.urlRepository, 'create').resolves(generateMock)
 
       const result = await sut.generate(fullURL)
-      // const hash = result.substr(22)
       const baseURL = config.app.baseUrl
 
       expect(result).is.deep.eq(generateMock)
@@ -295,9 +291,9 @@ describe('Services -> UrlService', () => {
       const hash = 'abc123'
       const baseURL = config.app.baseUrl
 
-      const result = await sut._generateShortURL(hash)
+      const result = sut._generateShortURL(hash)
 
-      expect(result).is.deep.eq(`${baseURL}/${hash}`)
+      expect(result).is.deep.eq(`${baseURL}/api/url/${hash}`)
     })
   })
 
@@ -311,12 +307,20 @@ describe('Services -> UrlService', () => {
         shortURL: 'wwww.localhost.com/abc123'
       }
 
-      const result = await sut._urlData(dataMock)
+      const result = sut._urlData(dataMock)
 
       expect(result).is.deep.eq({
         fullURL: 'wwww.fakeURL.com',
         shortURL: 'wwww.localhost.com/abc123'
       })
+    })
+
+    it('Should be _create shordata url', async () => {
+      const sut = makeSUT()
+
+      const result = sut._urlData()
+
+      expect(result).is.null
     })
   })
 })

@@ -6,12 +6,15 @@ module.exports = {
   },
   NOT_FOUND: {
     code: 'NOT_FOUND',
-    message: 'Cannot find URL this hash',
-    status: 404
+    message: 'Cannot find URL this hash'
   },
-  NOT_GENERATE:{
+  NOT_GENERATE: {
     code: 'NOT_GENERATE',
-    message: 'URL already exists',
-    status: 400
+    message: 'URL already exists'
+  },
+  NOT_EXIST: {
+    code: 'NOT_EXIST',
+    message: 'URL not exist, try again',
+    type: 'failure'
   }
 }

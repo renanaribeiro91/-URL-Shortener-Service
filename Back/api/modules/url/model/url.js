@@ -9,7 +9,8 @@ const schema = mongoose.Schema(
   {
     fullURL: String,
     shortURL: String,
-    hash: String
+    hash: String,
+    clicks: { type: Number, default: 0 }
   },
   {
     collection: MODEL_NAME,
@@ -17,6 +18,6 @@ const schema = mongoose.Schema(
   }
 )
 
-schema.index({ hash: 1, fullURL: 1 }, { unique: true })
+schema.index({ hash: 1, fullURL: 1, clicks: 1 }, { unique: true })
 
 module.exports = connection.model(MODEL_NAME, schema)

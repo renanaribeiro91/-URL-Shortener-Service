@@ -1,5 +1,6 @@
 const util = require('util')
 const urlExists = util.promisify(require('url-exists'))
+const { NOT_EXIST } = require('../../../shared/enum/ErrorEnum')
 
 module.exports = async (req, res, next) => {
   try {
@@ -8,11 +9,7 @@ module.exports = async (req, res, next) => {
     const isExist = await urlExists(fullURL)
 
     if (!isExist) {
-      return res.send(400, {
-        code: 'NOT_EXIST',
-        message: 'URL not exist, try again',
-        type: 'failure'
-      })
+      return res.send(400, NOT_EXIST)
     }
     return next()
   } catch (error) {
