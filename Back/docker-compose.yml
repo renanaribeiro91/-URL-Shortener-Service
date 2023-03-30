@@ -1,14 +1,30 @@
 version: '2.4'
 services:
-
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8091:8091"
+    restart: always
+    env_file: ./.env.local  
+    tty: true
+    stdin_open: true
+    depends_on:
+      - mongo
+    networks:
+      - host
+        
   mongo:
-    image: mongo:4.4
+    image: mongo
     restart: always
     container_name: mongo
     ports:
-      - 27017:27017
-    environment:
-      MONGO_INITDB_DATABASE: desafio-encurtador-url
-    volumes:
-      - '$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/'
-    command: mongod
+      - 27017:27017     
+    networks:
+      - host
+networks: 
+  host:
+    driver: bridge 
+    
