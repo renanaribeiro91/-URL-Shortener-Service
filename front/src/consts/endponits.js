@@ -1,0 +1,1 @@
+export const endPonit = 'http://localhost:8091/api/url'
