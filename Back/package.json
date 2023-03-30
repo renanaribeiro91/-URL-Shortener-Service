@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "clear; rm -rf logs/*.log*; NODE_ENV=local nodemon index.js;",
+    "build": "sudo -E docker-compose up -d",
     "test": "npm run test:unit:coverage && npm run test:integration",
     "test:unit": "NODE_ENV=testing mocha './api/**/*.unit.js' --timeout 12000",
     "test:unit:coverage": "NODE_ENV=testing nyc --reporter=html --reporter=text --report-dir=test-reports mocha './api/**/*.unit.js' --timeout 12000",

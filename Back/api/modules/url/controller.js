@@ -18,7 +18,7 @@ class UrlController extends BaseController {
     try {
       this.log.debug(`Iniciando a busca da original URl com a hash:[${hash}]`)
       const url = await this.urlService.get(hash)
-      if (url) return res.redirect(url.fullURL, next)
+      if (url) return res.send(url.fullURL, next)
       res.send(404, NOT_FOUND)
       return next()
     } catch (error) {
@@ -34,8 +34,8 @@ class UrlController extends BaseController {
     try {
       this.log.debug(`Iniciando a geração da URl curta:[${fullURL}]`)
       const url = await this.urlService.generate(fullURL)
-      if (url) return res.send(201, url.shortURL)
-      res.send(400, NOT_GENERATE)
+      if (url) return res.send(201, url)
+      res.send(409, NOT_GENERATE)
       return next()
     } catch (error) {
       return this.handle.handleControllerError('generate', res, next, error)

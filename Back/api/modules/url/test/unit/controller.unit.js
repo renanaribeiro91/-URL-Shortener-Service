@@ -133,7 +133,7 @@ describe('Controllers -> UrlController', () => {
       const status = send.args[0][0]
       const body = send.args[0][1]
 
-      expect(status).to.be.eq(400)
+      expect(status).to.be.eq(409)
       expect(body.message).to.be.eq('URL already exists')
     })
 

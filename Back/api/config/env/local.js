@@ -3,7 +3,10 @@ module.exports = {
     name: 'encurtador-url',
     baseRoute: '/api',
     port: process.env.PORT,
-    baseUrl: `http://localhost:${process.env.PORT}`
+    baseUrl: process.env.BASEURL
+  },
+  environment: {
+    name: 'local'
   },
   db: {
     mongodb: {
@@ -19,16 +22,11 @@ module.exports = {
       }
     }
   },
+
   cors: {
     preflightMaxAge: 5,
     origins: ['*'],
-    allowHeaders: [
-      'x-origin-channel',
-      'x-origin-application',
-      'Access-Controll-Allow-Origin',
-      'x-origin-device',
-      'x-identifier',
-    ],
+    allowHeaders: ['*'],
     exposeHeaders: []
   },
   log: {
@@ -59,11 +57,12 @@ module.exports = {
   },
   origin: {
     ignoreExact: ['/'],
-    ignore: ['/doc/'],
+    ignore: ['/doc/', '/api/indice-erros'],
     require: {
-      application: true,
-      channel: true,
+      application: false,
+      channel: false,
       device: false
     }
-  }
+  },
 }
+

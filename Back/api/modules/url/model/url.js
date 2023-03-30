@@ -1,7 +1,7 @@
 const { database } = require('simple-node-framework').Singleton
 const mongoose = require('mongoose')
 
-const connection = database.connections?.mongodb?.app || mongoose
+const connection = database.connections.mongodb.app || mongoose
 
 const MODEL_NAME = 'URLS'
 
