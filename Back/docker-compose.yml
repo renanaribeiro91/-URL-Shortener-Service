@@ -13,6 +13,7 @@ services:
     stdin_open: true
     depends_on:
       - mongo
+    command: "npm run test:integration"
     networks:
       - host
 
