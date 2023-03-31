@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
 
-jobs:
+jobs:     
   build-and-deploy-backend:
     runs-on: ubuntu-latest
     container: node:16-alpine
@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
+        mongodb-version: ['4.2', '4.4', '5.0', '6.0']
 
     steps:
       - name: Checkout Backend
@@ -19,6 +20,11 @@ jobs:
         with:
           path: 'Back'
           ref: main
+        
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }} 
           
       - name: Run install
         run: |
