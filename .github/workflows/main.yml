@@ -5,6 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
+
   mongodbAndBack:
     runs-on: ubuntu-latest
     services:
@@ -23,9 +24,7 @@ jobs:
       
       - name: Run install
         run: |
-          ls
           cd Back
-          ls
           npm install
       
       - name: Run test
@@ -45,9 +44,10 @@ jobs:
           DOCKER_REPOSITORY: 'renanribeiro91/encurtador-url'
           DOCKER_TAG: 'latest'
         run: |
-          cd Back/Back
+          cd Back
           docker build -t $DOCKER_REPOSITORY:$DOCKER_TAG .
           docker push $DOCKER_REPOSITORY:$DOCKER_TAG
+      
   build-and-deploy-frontend:
     runs-on: ubuntu-latest
     steps:
