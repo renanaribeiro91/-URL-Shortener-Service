@@ -9,11 +9,6 @@ jobs:
   build-and-deploy-backend:
     runs-on: ubuntu-latest
     container: node:16-alpine
-    services:
-      mongodb:
-        image: mongo
-        ports:
-        - 27017:27017
     
     strategy:
       matrix:
@@ -26,8 +21,8 @@ jobs:
           path: 'Back'
           ref: main
          
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.8.0  
+      - name: MongoDB in GitHub Actions
+        uses: supercharge/mongodb-github-action@1.9.0
           
       - name: Run install
         run: |
@@ -35,8 +30,6 @@ jobs:
           npm install
       
       - name: Run test
-        env:
-          MONGODB_URI: ${{ secrets.URI_TEST_MONGO }}  
         run: |
           cd Back/Back
           npm run test
