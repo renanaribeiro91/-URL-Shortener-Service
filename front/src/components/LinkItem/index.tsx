@@ -3,21 +3,20 @@ import { IProps } from "./interfaces";
 import * as S from "./styles";
 
 function LinkItem({ content, closeModal }: IProps) {
-
   const redirectUrl = content?.shortURL.replace(
     "http://localhost:8091/api/url/",
     "http://localhost:3000/"
   ) as string;
 
-  async function copyLink() {
-    navigator.clipboard.writeText(await redirectUrl);
+  function copyLink() {
+    navigator.clipboard.writeText(redirectUrl);
     alert("URL copiada com sucesso!");
   }
 
   return (
     <S.container>
       <S.column>
-        <h2 >Seus links :</h2>
+        Seus links :
         <S.button onClick={closeModal}>
           <FiX size={28} color="#ec2d2d" />
         </S.button>
@@ -33,7 +32,7 @@ function LinkItem({ content, closeModal }: IProps) {
           href={content?.fullURL}
           rel="noreferrer"
           target="_blank"
-          style={{ fontSize: "25px" , color: "black" }}
+          style={{ fontSize: "25px", color: "black" }}
         >
           {redirectUrl}
         </a>

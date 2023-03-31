@@ -1,5 +1,19 @@
 import styled from "styled-components";
 
+export const title = styled.h1`
+  fontsize: 8rem;
+`;
+
+export const main = styled.div`
+  width: 100%;
+  flexdirection: column;
+`;
+
+export const subTitle = styled.span`
+  display: flex;
+  justifycontent: center;
+`;
+
 export const section = styled.section`
   width: 100%;
   height: 100vh;
@@ -29,5 +43,32 @@ export const button = styled.button`
   font-size: 1.1rem;
   border: 0;
   font-weight: bold;
-  margin-top:25px;
+  margin-top: 25px;
+`;
+
+export const renanData = styled.div`
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+  display:flex
+  font-size: 12px;
+  font-family: serif;
+  color: #f3f3fd;
+  animation: animate 1.5s linear infinite;
+
+  a {
+    color: #f3f3fd;
+  }
+
+  @keyframes animate {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 `;
