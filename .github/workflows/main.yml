@@ -23,6 +23,8 @@ jobs:
           
       - name: MongoDB in GitHub Actions
         uses: supercharge/mongodb-github-action@1.9.0
+        env:
+          CI: true
           
       - name: Run install
         run: |
