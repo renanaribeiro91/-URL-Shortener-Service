@@ -1,12 +1,13 @@
 FROM node:16-alpine
+FROM nginx:alpine
 
 WORKDIR /Back
 
 COPY . .
+COPY . /usr/share/nginx/html
 
-RUN npm install
-RUN npm cache clean --force
 
 EXPOSE 8091
+EXPOSE 80
 
 CMD node index.js
