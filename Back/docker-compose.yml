@@ -6,25 +6,29 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8091:8091"
+      - '8091:8091'
     restart: always
-    env_file: ./.env.local  
+    env_file: ./.env.local
     tty: true
     stdin_open: true
     depends_on:
       - mongo
     networks:
       - host
-        
+
   mongo:
     image: mongo
     restart: always
     container_name: mongo
     ports:
-      - 27017:27017     
+      - 27017:27017
+    options: >-
+      --health-cmd mongo
+      --health-interval 10s
+      --health-timeout 5s
+      --health-retries 5
     networks:
       - host
-networks: 
+networks:
   host:
-    driver: bridge 
-    
+    driver: bridge
