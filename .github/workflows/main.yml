@@ -26,7 +26,9 @@ jobs:
           DOCKER_REPOSITORY: 'renanribeiro91/encurtador-url'
           DOCKER_TAG: 'latest'
         run: |
+          ls
           cd Back
+          ls
           docker build -t $DOCKER_REPOSITORY:$DOCKER_TAG .
           docker push $DOCKER_REPOSITORY:$DOCKER_TAG
 
