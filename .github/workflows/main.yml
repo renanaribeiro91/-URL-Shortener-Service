@@ -13,6 +13,11 @@ jobs:
         with:
           path: 'Back'
           ref: main
+          
+      - name: Run install
+        run: |
+          cd Back/Back
+          npm run install
       
       - name: Run test
         run: |
