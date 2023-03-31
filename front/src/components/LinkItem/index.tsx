@@ -1,7 +1,4 @@
-/* eslint-disable no-sequences */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FiClipboard, FiX } from "react-icons/fi";
-import UrlService from "../../services/url";
 import { IProps } from "./interfaces";
 import * as S from "./styles";
 

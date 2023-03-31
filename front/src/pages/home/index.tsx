@@ -1,15 +1,13 @@
+/* eslint-disable no-sequences */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FiLink } from "react-icons/fi";
-
 import { useEffect, useState } from "react";
 import LinkItem from "../../components/LinkItem";
-
 import { useNavigate, useParams } from "react-router-dom";
 import { UrlParams } from "../../components/LinkItem/interfaces";
 import UrlService from "../../services/url";
 import * as S from "./styles";
-import NotFound from "../notFound";
 
 export interface Url {
   fullURL: string;
