@@ -30,6 +30,8 @@ jobs:
           npm install
       
       - name: Run test
+        env:
+          CI: true
         run: |
           cd Back/Back
           npm run test
