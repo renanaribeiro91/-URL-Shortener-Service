@@ -25,6 +25,9 @@ jobs:
         with:
           path: 'Back'
           ref: main
+         
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0  
           
       - name: Run install
         run: |
@@ -33,7 +36,7 @@ jobs:
       
       - name: Run test
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}  
+          MONGODB_URI: ${{ secrets.URI_TEST_MONGO }}  
         run: |
           cd Back/Back
           npm run test
