@@ -18,8 +18,8 @@ describe('Controllers -> UrlController', () => {
     it('Should reply 200 when success.', async () => {
       const sut = makeSUT()
 
+      const send = sandbox.spy()
       const next = sandbox.spy()
-      const redirect = sandbox.spy()
 
       const req = {
         params: 'fakeHash'
@@ -31,10 +31,12 @@ describe('Controllers -> UrlController', () => {
 
       sandbox.stub(sut.urlService, 'get').resolves(result)
 
-      await sut.get(req, { redirect }, next)
+      await sut.get(req, { send }, next)
 
-      const body = redirect.args[0][0]
+      const status = send.args[0][0]
+      const body = send.args[0][1]
 
+      expect(status).to.be.eq(200)
       expect(body).to.be.deep.eq(result.fullURL)
     })
 
@@ -112,7 +114,7 @@ describe('Controllers -> UrlController', () => {
       const body = send.args[0][1]
 
       expect(status).to.be.eq(201)
-      expect(body).to.be.eq(result.shortURL)
+      expect(body).to.be.eq(result)
     })
 
     it('Should reply 400 when URL already exists.', async () => {

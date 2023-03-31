@@ -18,7 +18,7 @@ class UrlController extends BaseController {
     try {
       this.log.debug(`Iniciando a busca da original URl com a hash:[${hash}]`)
       const url = await this.urlService.get(hash)
-      if (url) return res.send(url.fullURL, next)
+      if (url) return res.send(200, url.fullURL)
       res.send(404, NOT_FOUND)
       return next()
     } catch (error) {

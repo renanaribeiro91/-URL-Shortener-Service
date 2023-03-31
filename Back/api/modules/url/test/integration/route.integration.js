@@ -71,9 +71,11 @@ describe('Integration -> URL', () => {
 
       const hash = 'abc123'
 
-      const { req } = await callGetAPI(server, hash)
+      const { status, body } = await callGetAPI(server, hash)
 
-      expect(req._header).to.contain('www.fakeURL.com')
+      expect(status).is.eq(200)
+
+      expect(body).to.contain('www.fakeURL.com')
     })
 
     it('Should returns 404 if url not exist.', async () => {
@@ -100,11 +102,14 @@ describe('Integration -> URL', () => {
       const { status, body } = await callPostAPI(server, {
         fullURL: 'https://www.youtube.com'
       })
-      const hash = body.substr(22)
+      const hash = body.shortURL.substr(22)
       const baseURL = config.app.baseUrl
 
       expect(status).is.eq(201)
-      expect(body).to.be.deep.eq(`${baseURL}/${hash}`)
+      expect(body).to.be.deep.eq({
+        fullURL: 'https://www.youtube.com',
+        shortURL: `${baseURL}/${hash}`
+      })
     })
 
     it('Should returns 400 if url already exist.', async () => {
@@ -118,10 +123,10 @@ describe('Integration -> URL', () => {
         fullURL: 'https://www.youtube.com'
       })
 
-      expect(status).is.eq(400)
+      expect(status).is.eq(409)
       expect(body).to.be.deep.eq({
-        code: "NOT_GENERATE",
-        message: "URL already exists",
+        code: 'NOT_GENERATE',
+        message: 'URL already exists'
       })
     })
   })
