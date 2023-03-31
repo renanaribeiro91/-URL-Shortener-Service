@@ -24,13 +24,13 @@ jobs:
       - name: Run install
         run: |
           ls
-          cd Back/Back
+          cd Back/Back/Back
           ls
           npm install
       
       - name: Run test
         run: |
-          cd Back/Back
+          cd Back/Back/Back
           npm run test
          
       - name: Login to DockerHub
