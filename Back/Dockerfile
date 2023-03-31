@@ -6,10 +6,6 @@ WORKDIR /Back
 
 COPY . .
 
-ADD site.tar /usr/share/nginx/html/
-
-RUN npm install
-RUN npm cache clean --force
 
 EXPOSE 80
 
