@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 export const title = styled.h1`
-  fontsize: 8rem;
+  font-size: 8rem;
 `;
 
 export const main = styled.div`
-  width: 100%;
-  flexdirection: column;
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const subTitle = styled.span`
@@ -16,7 +20,7 @@ export const subTitle = styled.span`
 
 export const section = styled.section`
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   flex-direction: column;

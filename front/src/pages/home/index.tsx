@@ -47,15 +47,10 @@ function Home() {
         </a>
       </S.renanData>
 
-      <S.main
-        style={{
-          width: "100%",
-          flexDirection: "column",
-        }}
-      >
+      <S.main>
         <S.section>
-          <S.title style={{ fontSize: "8rem" }}>Encurte sua URL</S.title>
-          <S.subTitle style={{ display: "flex", justifyContent: "center" }}>
+          <S.title >Encurte sua URL</S.title>
+          <S.subTitle>
             <FiLink size={24} color="#fff" />
             Cole seu link para encurtar
           </S.subTitle>
