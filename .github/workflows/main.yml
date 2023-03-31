@@ -21,20 +21,18 @@ jobs:
           path: 'Back'
           ref: main
           
-      - name: MongoDB in GitHub Actions
-        uses: supercharge/mongodb-github-action@1.9.0
-        env:
-          CI: true
-          
       - name: Run install
         run: |
           cd Back/Back
           npm install
       
       - name: Run test
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}  
         run: |
           cd Back/Back
           npm run test
+          
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
