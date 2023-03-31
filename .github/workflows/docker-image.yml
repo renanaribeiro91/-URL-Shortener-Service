@@ -65,7 +65,7 @@ jobs:
         - name: Build and push
           uses: docker/build-push-action@v2
           with:
-            context: ./
+            context: ./Back
             file: ./Dockerfile
             push: true
             tags: ${{ secrets.USER }}/encurtador-url:latest
