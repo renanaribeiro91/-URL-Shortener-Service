@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  mongodb:
+  mongodbAndBack:
     runs-on: ubuntu-latest
     services:
       mongodb:
@@ -15,47 +15,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Install MongoDB client
-        run: sudo apt-get install mongodb-clients
-
-      - name: Wait for MongoDB to start
-        run: |
-          until echo 'exit' | mongo --host localhost:27017; do
-            sleep 1
-          done
-
-      - name: Create database and collections
-        run: |
-          mongo --host localhost:27017 --eval "db.createUser({user: '${{ secrets.mongo }}', roles:[{role:'readWrite',db:'desafio-encurtador-url'}]})"
-        
-  build-and-deploy-backend:
-    runs-on: ubuntu-latest
-    container: node:16-alpine
-    
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-      - name: Checkout Backend
-        uses: actions/checkout@v2
-        with:
-          path: 'Back'
-          ref: main     
-          
-      - name: Run install
-        run: |
-          cd Back/Back
-          npm install
-          
-      - name: Wait for MongoDB
-        run: sleep 10  
       
-      - name: Run test
-        run: |
-          cd Back/Back
-          npm run test
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: run tests
+        run: npm tests
+        
          
       - name: Login to DockerHub
         uses: docker/login-action@v1
