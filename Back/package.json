@@ -10,7 +10,7 @@
     "test": "npm run test:unit:coverage && npm run test:integration",
     "test:unit": "NODE_ENV=testing mocha './api/**/*.unit.js' --timeout 12000",
     "test:unit:coverage": "NODE_ENV=testing nyc --reporter=html --reporter=text --report-dir=test-reports mocha './api/**/*.unit.js' --timeout 12000",
-    "test:integration": "NODE_ENV=testing mocha ./api/modules/**/*.integration*.js --timeout 12000",
+    "test:integration": "NODE_ENV=testing mocha ./api/modules/**/*.integration*.js",
     "lint": "clear; ./node_modules/.bin/eslint api/*",
     "doc:edit": "clear; swagger_swagger_fileName=doc/swagger.yaml swagger project edit",
     "doc:update": "clear; js-yaml doc/swagger.yaml > doc/swagger.json"
