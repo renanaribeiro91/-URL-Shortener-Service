@@ -32,6 +32,7 @@ jobs:
         run: |
           cd Back/Back
           npm run test
+          docker-compose up --exit-code-from-web
           
 
       - name: Login to DockerHub
