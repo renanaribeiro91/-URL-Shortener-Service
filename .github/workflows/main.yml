@@ -30,6 +30,9 @@ jobs:
         run: |
           cd Back/Back
           npm install
+          
+      - name: Wait for MongoDB
+        run: sleep 10  
       
       - name: Run test
         env:
