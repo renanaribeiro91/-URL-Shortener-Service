@@ -4,7 +4,28 @@ on:
   push:
     branches: [ main ]
 
-jobs:     
+jobs:  
+
+  mongo_action:
+    runs-on: ubuntu-latest
+    name: Test mongo-action
+    steps:
+      - name: Create mongo Docker container
+        uses: DigiPie/mongo-action@v2.0.1
+        with:
+          image_version: latest
+          port: 27017
+      - name: Install mongosh command
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget gnupg
+          wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-mongosh
+      - name: Test mongo connection
+        run: "sudo mongosh localhost:27017"
+        
   build-and-deploy-backend:
     runs-on: ubuntu-latest
     container: node:16-alpine
@@ -12,7 +33,6 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        mongodb-version: ['4.2', '4.4', '5.0', '6.0']
 
     steps:
       - name: Checkout Backend
@@ -20,11 +40,6 @@ jobs:
         with:
           path: 'Back'
           ref: main
-        
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.8.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }} 
           
       - name: Run install
         run: |
