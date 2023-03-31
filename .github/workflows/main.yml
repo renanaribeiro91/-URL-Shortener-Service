@@ -17,7 +17,7 @@ jobs:
       - name: Run install
         run: |
           cd Back/Back
-          npm run install
+          npm install
       
       - name: Run test
         run: |
