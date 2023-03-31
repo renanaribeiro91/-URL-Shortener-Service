@@ -9,6 +9,11 @@ jobs:
   build-and-deploy-backend:
     runs-on: ubuntu-latest
     container: node:16-alpine
+    services:
+      mongodb:
+        image: mongo
+        ports:
+        - 27017:27017
     
     strategy:
       matrix:
@@ -32,9 +37,7 @@ jobs:
         run: |
           cd Back/Back
           npm run test
-          docker-compose up --exit-code-from-web
-          
-
+         
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
