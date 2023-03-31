@@ -21,10 +21,22 @@ jobs:
           path: 'Back'
           ref: main
           
-      - name: Start MongoDB v${{ matrix.mongodb-version }}
-        uses: supercharge/mongodb-github-action@1.2.0
+      - name: Create mongo Docker container
+        uses: DigiPie/mongo-action@v2.0.1
         with:
-         mongodb-version: ${{ matrix.mongodb-version }}    
+          image_version: latest
+          port: 27017
+          
+      - name: Install mongosh command
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget gnupg
+          wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-mongosh
+      - name: Test mongo connection
+        run: "sudo mongosh localhost:27017"
           
       - name: Run install
         run: |
