@@ -1,9 +1,24 @@
 import { useState } from "react";
-import UrlService from "../../../services/url";
 import { useNavigate } from "react-router-dom";
+import UrlService from "../../../services/url";
 import { Url } from "../interfaces";
 
-export const HandleApi = (hash: string) => {
+function getErrorMessage(error: any) {
+  const status = error?.response?.status;
+
+  switch (status) {
+    case 400:
+      return "Url inválida, favor tente novamente.";
+    case 404:
+      return "Nenhuma url encontrada, favor tente novamente.";
+    case 409:
+      return "Url já registrada, favor tente novamente.";
+    default:
+      return "Ops! Parece que algo deu errado.";
+  }
+}
+
+export const useHandleApi = (hash: string) => {
   const [link, setLink] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState<Url>();
@@ -15,13 +30,13 @@ export const HandleApi = (hash: string) => {
 
       window.location.replace(shortUrl);
     } catch (error: any) {
-      if (hash && error.response.status === 404) {
-        alert("Nenhuma url encontrada, favortente novamente");
-        navigate("/");
+      const errorMessage = getErrorMessage(error);
 
-        return;
+      alert(errorMessage);
+
+      if (hash && error.response.status === 404) {
+        navigate("/");
       }
-      throw Error("Erro inesperado", error);
     }
   };
 
@@ -32,16 +47,9 @@ export const HandleApi = (hash: string) => {
       setData(generateShortUrl);
       setShowModal(true);
     } catch (err: any) {
-      if (err?.response.status === 409) {
-        setLink("");
-        return alert("Url já registrada , favor tente novamente");
-      }
-      if (err?.response.status === 400) {
-        setLink("");
-        return alert("Url inválida , favor tente novamente");
-      }
+      const errorMessage = getErrorMessage(err);
 
-      alert("Ops! Parece que algo deu errado!");
+      alert(errorMessage);
     }
 
     setLink("");

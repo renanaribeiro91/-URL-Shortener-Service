@@ -52,6 +52,7 @@ export const button = styled.button`
 
 export const renanData = styled.div`
   width: 100%;
+  text-align: center;
   position: absolute;
   justify-content: center;
   display:flex
