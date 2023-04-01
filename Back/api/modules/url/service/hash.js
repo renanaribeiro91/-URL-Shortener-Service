@@ -14,7 +14,7 @@ class HashService extends BaseService {
     }
 
     async getUrlByHash(hash) {
-        return this.urlRepository.getHash(hash)
+        return this.urlRepository.getByHash(hash)
     }    
 }
 

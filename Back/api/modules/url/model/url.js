@@ -1,11 +1,18 @@
-const { database } = require('simple-node-framework').Singleton
-const mongoose = require('mongoose')
+const { mongoose, Schema } = require('mongoose')
+const { Singleton } = require('simple-node-framework')
+const {
+  database: {
+    connections: {
+      mongodb: { app }
+    }
+  }
+} = Singleton
 
-const connection = database.connections?.mongodb?.app || mongoose
+const connection = app || mongoose
 
 const MODEL_NAME = 'URLS'
 
-const schema = mongoose.Schema(
+const schema = Schema(
   {
     fullURL: String,
     shortURL: String,
@@ -14,10 +21,11 @@ const schema = mongoose.Schema(
   },
   {
     collection: MODEL_NAME,
-    timestamps: true
+    timestamps: true,
+    _id: false // default
   }
 )
 
-schema.index({ hash: 1, fullURL: 1, clicks: 1 }, { unique: true })
+schema.index({ hash: 1 }, { unique: true })
 
 module.exports = connection.model(MODEL_NAME, schema)

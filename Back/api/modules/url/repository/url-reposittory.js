@@ -1,5 +1,5 @@
 const { BaseRepository } = require('simple-node-framework').Base
-const UrlModel = require('../model/url')
+const UrlModel = require('../model/url').default
 
 class UrlRepository extends BaseRepository {
   constructor() {
@@ -7,23 +7,19 @@ class UrlRepository extends BaseRepository {
     this.urlModel = UrlModel
   }
 
-  async getHash(hash) {
+  async getByHash(hash) {
     return this.urlModel.findOne({ hash })
   }
 
-  async getFullUrl(fullURL) {
+  async getByFullUrl(fullURL) {
     return this.urlModel.findOne({ fullURL })
   }
 
-  async create(data) {
-    const { fullURL, hash, shortURL } = data
-
+  async create({ fullURL, hash, shortURL }) {
     return this.urlModel.create({ fullURL, hash, shortURL })
   }
 
-  async update(data) {
-    const { hash, fullURL } = data
-
+  async update({ hash, fullURL }) {
     return this.urlModel.findOneAndUpdate(
       { hash },
       { fullURL },

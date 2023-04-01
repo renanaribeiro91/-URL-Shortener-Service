@@ -30,7 +30,7 @@ describe('Services -> hashService', () => {
 
       const hash = '123abc'
 
-      sandbox.stub(sut.urlRepository, 'getHash').returns(hash)
+      sandbox.stub(sut.urlRepository, 'getByHash').returns(hash)
 
       const result = await sut.getUrlByHash(hash)
 

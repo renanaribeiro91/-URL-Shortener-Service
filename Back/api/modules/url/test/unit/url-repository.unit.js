@@ -14,14 +14,14 @@ describe('UrlRepository', () => {
     sandbox.restore()
   })
 
-  describe('getHash', () => {
+  describe('getByHash', () => {
     it('Should expect get hash', async () => {
       const sut = makeSUT()
 
       const hash = 'abc123'
       const urlStub = sandbox.stub(sut.urlModel, 'findOne').returns(hash)
 
-      await sut.getHash(hash)
+      await sut.getByHash(hash)
 
       expect(urlStub).have.been.calledWith({ hash: hash })
     })
@@ -34,7 +34,7 @@ describe('UrlRepository', () => {
       const fullURL = 'www.fakeURL.com/urlLongaDemais'
       const urlStub = sandbox.stub(sut.urlModel, 'findOne').returns(fullURL)
 
-      await sut.getFullUrl(fullURL)
+      await sut.getByFullUrl(fullURL)
 
       expect(urlStub).have.been.calledWith({ fullURL: fullURL })
     })

@@ -223,7 +223,7 @@ describe('Services -> UrlService', () => {
   })
 
   describe('_getUrl', () => {
-    it('Should get url by getFullUrl', async () => {
+    it('Should get url by getByFullUrl', async () => {
       const sut = makeSUT()
 
       const fullURL = 'wwww.fakeURL.com'
@@ -234,7 +234,7 @@ describe('Services -> UrlService', () => {
         fullURL: 'wwww.fakeURL.com',
         shortURL: 'www.localhost.com/abc123'
       }
-      sandbox.stub(sut.urlRepository, 'getFullUrl').resolves(getMock)
+      sandbox.stub(sut.urlRepository, 'getByFullUrl').resolves(getMock)
 
       const result = await sut._getUrl(null, fullURL, generateEndPoint)
 

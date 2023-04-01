@@ -50,8 +50,7 @@ class UrlService extends BaseService {
         return null
       }
 
-      const data = { hash, fullURL }
-      const url = await this.urlRepository.update(data)
+      const url = await this.urlRepository.update({ hash, fullURL })
       this.log.debug(`URL atualizada em nossa base de dados :${fullURL}`)
 
       return this._urlData(url)
@@ -78,7 +77,7 @@ class UrlService extends BaseService {
 
   _getUrl(hash, fullURL, generateEndPoint = false) {
     if (generateEndPoint) {
-      return this.urlRepository.getFullUrl(fullURL)
+      return this.urlRepository.getByFullUrl(fullURL)
     }
     return this.hashService.getUrlByHash(hash)
   }
@@ -86,9 +85,8 @@ class UrlService extends BaseService {
   async _create(fullURL) {
     const hash = await this.hashService.generateHash()
     const shortURL = this._generateShortURL(hash)
-    const data = { fullURL, hash, shortURL }
 
-    return this.urlRepository.create(data)
+    return this.urlRepository.create({ fullURL, hash, shortURL })
   }
 
   _generateShortURL(hash) {

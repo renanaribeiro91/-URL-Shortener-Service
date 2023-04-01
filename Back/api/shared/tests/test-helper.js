@@ -9,13 +9,19 @@ function onDbConnected(...dbs) {
       let connecteds = 0
 
       const finish = () => {
-        if (connecteds === dbs.length) resolve()
+        if (connecteds === dbs.length) {
+          resolve()
+        }
       }
 
       if (dbs.includes('mongo')) {
         database.onMongoConnected = () => {
           connecteds += 1
           finish()
+        }
+
+        database.onMongoError = (error) => {
+          reject(new Error(`Erro ao conectar com o banco de dados MongoDB: ${error.message}`))
         }
       }
     } catch (error) {

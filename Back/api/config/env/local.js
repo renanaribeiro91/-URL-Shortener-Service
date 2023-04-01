@@ -23,7 +23,7 @@ module.exports = {
     }
   },
 
-  cors: {
+  cors: { 
     preflightMaxAge: 5,
     origins: ['*'],
     allowHeaders: ['*'],
