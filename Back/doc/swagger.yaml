@@ -1,88 +1,119 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "Projeto de encurtador de URL"
-  version: "1.0.0"
-  title: "Encurtador de URL"
+  description: 'Projeto de encurtador de URL'
+  version: '1.0.0'
+  title: 'Encurtador de URL'
   contact:
-    email: "renan.admribeiro@mail.com"
-host: "localhost:8091"
-basePath: "/api"
+    email: 'renan.admribeiro@mail.com'
+host: 'localhost:8091'
+basePath: '/api'
 schemes:
-- "http"
+  - 'http'
 paths:
   /url/{hash}:
     get:
-      summary: >-
-        Redireciona para a url original
-      consumes:
-      - "application/json"
+      summary: 'Redireciona para a url original'
       produces:
-      - "application/json"
+        - 'application/json'
       parameters:
-      - in: path
-        name: "name"
-        description: "Redireciona para a url original" 
+        - in: path
+          name: 'hash'
+          description: 'Hash gerada da URL original'
+          required: true
+      responses:
+        302:
+          description: 'Redireciona para URL original'
+        404:
+          description: 'Hash não encontrada na base de dados'
+        500:
+          description: 'Erro inesperado'
+    put:
+      summary: 'Atualiza a url original'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: path
+          name: 'hash'
+          description: 'Hash gerada da URL original'
+          required: true
+        - in: body
+          name: 'body'
+          description: 'URL original atualizada'
+          required: true
+          schema:
+            type: object
+            properties:
+              fullURL:
+                type: string
+                example: 'https://www.example.com'
       responses:
         200:
-          description: "Sucesso no redirecionamento para url original"
+          description: 'URL original atualizada com sucesso'
+          schema:
+            type: object
+            properties:
+              fullURL:
+                type: string
+                example: 'https://www.example.com'
+              shortURL:
+                type: string
+                example: 'localhost:8091/xm7f8'
         404:
-          description: "Hash não encontrada na base de dados"
+          description: 'Hash não encontrada na base de dados'
         500:
-          description: "Erro inesperado"
+          description: 'Erro inesperado'
+    delete:
+      summary: 'Deleta a url original'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: path
+          name: 'hash'
+          description: 'Hash gerada da URL original'
+          required: true
+      responses:
+        204:
+          description: 'URL original deletada com sucesso'
+        404:
+          description: 'Hash não encontrada na base de dados'
+        500:
+          description: 'Erro inesperado'
   /url/generate:
     post:
-      summary: "generate shortURL"
+      summary: 'Gera uma url curta com base na url original'
       consumes:
-      - "application/json"
+        - 'application/json'
       produces:
-      - "application/json"
+        - 'application/json'
       parameters:
-      - in: path
-        name: "name"
-        description: "Gera uma url curta com base na url original" 
+        - in: body
+          name: 'body'
+          description: 'URL original para gerar a URL curta'
+          required: true
+          schema:
+            type: object
+            properties:
+              fullURL:
+                type: string
+                example: 'https://www.example.com'
       responses:
         201:
-          description: "Gera uma url com sucesso"
-        404:
-          description: "Hash não encontrada na base de dados"
+          description: 'URL curta gerada com sucesso'
+          schema:
+            type: object
+            properties:
+              fullURL:
+                type: string
+                example: 'https://www.example.com'
+              shortURL:
+                type: string
+                example: 'localhost:8091/xm7f8'
+        409:
+          description: 'URL curta já existe na base de dados'
         500:
-          description: "Erro inesperado"
-  /url/{hash}:
-    put:
-      summary: "Loads a customer by the name"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: path
-        name: "name"
-        description: "Atualiza a url original" 
-      responses:
-        200:
-          description: "Atualiza url com sucesso"
-        404:
-          description: "Hash não encontrada na base de dados"
-        500:
-          description: "Erro inesperado"
-  /url/{hash}:
-    del:
-      summary: "Deleta a url"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: path
-        name: "name"
-        description: "redirect by original URL" 
-      responses:
-        202:
-          description: "Deleta url com sucesso"
-        404:
-          description: "Not found"
-        500:
-          description: "Internal Server Error"                    
+          description: 'Erro inesperado'
 externalDocs:
-  description: "My application"
-  url: "http://swagger.io"
+  description: 'My application'
+  url: 'http://swagger.io'
