@@ -8,7 +8,7 @@ class HandleError extends BaseClass {
   }
 
   handleControllerError(method, res, next, error) {
-    this.log.error(`Erro em [${this.className}] [${method}]`, error)
+
 
     const { code, message, status } = UNEXPECTED_ERROR
 

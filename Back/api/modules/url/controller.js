@@ -16,7 +16,6 @@ class UrlController extends BaseController {
     const { hash } = req.params
 
     try {
-      this.log.debug(`Iniciando a busca da original URl com a hash:[${hash}]`)
       const url = await this.urlService.get(hash)
       if (url) return res.send(200, url.fullURL)
       res.send(404, NOT_FOUND)
@@ -32,7 +31,7 @@ class UrlController extends BaseController {
     const { fullURL } = req.body
 
     try {
-      this.log.debug(`Iniciando a geração da URl curta:[${fullURL}]`)
+
       const url = await this.urlService.generate(fullURL)
       if (url) return res.send(201, url)
       res.send(409, NOT_GENERATE)
@@ -49,9 +48,7 @@ class UrlController extends BaseController {
     const { fullURL } = req.body
 
     try {
-      this.log.debug(
-        `Iniciando a atualização da original URl com a hash:[${hash}]`
-      )
+
       const url = await this.urlService.update(hash, fullURL)
       if (url) return res.send(200, url)
 
@@ -68,7 +65,7 @@ class UrlController extends BaseController {
     const { hash } = req.params
 
     try {
-      this.log.debug(`Iniciando a remoção da original URl com a hash:[${hash}]`)
+
       const url = await this.urlService.delete(hash)
       if (url) return res.send(202)
 

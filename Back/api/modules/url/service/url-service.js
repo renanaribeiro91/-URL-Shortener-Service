@@ -18,7 +18,7 @@ class UrlService extends BaseService {
 
       return this._urlData(url)
     } catch (error) {
-      this.log.error('Erro inesperado', error)
+
       return error
     }
   }
@@ -29,15 +29,15 @@ class UrlService extends BaseService {
     try {
       const urlExist = await this._getUrl({}, fullURL, generateEndPoint)
       if (urlExist) {
-        this.log.debug(`URL já existente em nossa base de dados`)
+
         return null
       }
 
       const url = await this._create(fullURL)
-      this.log.debug(`URL criada em nossa base de dados :[${fullURL}]`)
+
       return this._urlData(url)
     } catch (error) {
-      this.log.error('Erro inesperado', error)
+    
       return error
     }
   }
@@ -46,16 +46,16 @@ class UrlService extends BaseService {
     try {
       const urlExist = await this._getUrl(hash)
       if (!urlExist) {
-        this.log.debug(`URL não encontrada com a hash de:[${hash}]`)
+
         return null
       }
 
       const url = await this.urlRepository.update({ hash, fullURL })
-      this.log.debug(`URL atualizada em nossa base de dados :${fullURL}`)
+
 
       return this._urlData(url)
     } catch (error) {
-      this.log.error('Erro inesperado', error)
+
       return error
     }
   }
@@ -64,13 +64,13 @@ class UrlService extends BaseService {
     try {
       const urlExist = await this._getUrl(hash)
       if (!urlExist) {
-        this.log.debug(`URL não encontrada com a hash de:[${hash}]`)
+   
         return null
       }
 
       return this.urlRepository.delete(hash)
     } catch (error) {
-      this.log.error('Erro inesperado', error)
+  
       return error
     }
   }

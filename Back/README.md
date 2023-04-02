@@ -4,12 +4,15 @@ This is encurtador-url that uses [simple-node-framework](https://github.com/diog
 
 ## Run
 
-Rodar o compose up para subir o banco de dados mongo \*\*\*
+Back-end:
 
-| Task      | Description            |
-| --------- | ---------------------- |
-| npm start | starts the application |
-| npm test  | run tests              |
+- `npm run build`: Monta o build no docker com o node e mongo
+- `npm start`: Inicia a aplicação.
+- `npm test`: Executa os testes.
+
+Front-end:
+
+- `npm start`: Inicia a aplicação.
 
 # Encurtador de URL (estilo bitly) - [bitly](https://bitly.com/)
 
@@ -33,7 +36,8 @@ body = {
 
 //Ex. response
 body = {
-  url: 'http://localhost:8080/qyzrtwptgj'
+  fullURL:'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.cloudflare.steamstatic.com%2Fsteam%2Fapps%2F1092300%2Fss_d6d81ad77f40ab58aaf7f636f9b4fadefc658b94.1920x1080.jpg%3Ft%3D1577170099&imgrefurl=https%3A%2F%2Fstore.steampowered.com%2Fapp%2F1092300%2FDrone_Racer%2F%3Fl%3Dbrazilian&tbnid=iycFgSi3GX2-bM&vet=12ahUKEwjQ17De_uL8AhVrLLkGHYgAA2YQMygsegUIARCxAw..i&docid=2_FsbHDUb66p5M&w=1920&h=1080&itg=1&q=drone%20racer&ved=2ahUKEwjQ17De_uL8AhVrLLkGHYgAA2YQMygsegUIARCxAw',
+  shortURL: 'http://localhost:8080/qyzrtwptgj'
 }
 ```
 
