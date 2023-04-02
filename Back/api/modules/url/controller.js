@@ -11,7 +11,7 @@ class UrlController extends BaseController {
   }
 
   async get(req, res, next) {
-    super.activateRequestLog(req)
+    // super.activateRequestLog(req)
 
     const { hash } = req.params
 
@@ -26,7 +26,7 @@ class UrlController extends BaseController {
   }
 
   async generate(req, res, next) {
-    super.activateRequestLog(req)
+    // super.activateRequestLog(req)
 
     const { fullURL } = req.body
 
@@ -42,7 +42,7 @@ class UrlController extends BaseController {
   }
 
   async update(req, res, next) {
-    super.activateRequestLog(req)
+    // super.activateRequestLog(req)
 
     const { hash } = req.params
     const { fullURL } = req.body
@@ -60,7 +60,7 @@ class UrlController extends BaseController {
   }
 
   async delete(req, res, next) {
-    super.activateRequestLog(req)
+    // super.activateRequestLog(req)
 
     const { hash } = req.params
 
