@@ -29,21 +29,7 @@ module.exports = {
     allowHeaders: ['*'],
     exposeHeaders: []
   },
-  log: {
-    debug: false,
-    bunyan: {
-      name: 'Application',
-      streams: [
-        {
-          level: 'debug',
-          type: 'rotating-file',
-          path: 'logs/{hostname}.log',
-          period: '1d',
-          count: 2
-        }
-      ]
-    }
-  },
+
   authorization: {
     enabled: true,
     basic: {
