@@ -59,6 +59,7 @@ jobs:
           cluster: encurtador-url-Cluster
           service: encurtador-url-Service
           image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          task-definition: arn:aws:ecs:sa-east-1:990734238442:task-definition/encurtador-url-grupo:1
           aws-region: sa-east-1
 
       
