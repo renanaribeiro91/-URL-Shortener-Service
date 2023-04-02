@@ -1,5 +1,5 @@
 const { BaseRepository } = require('simple-node-framework').Base
-const UrlModel = require('../model/url').default
+const UrlModel = require('../model/url')
 
 class UrlRepository extends BaseRepository {
   constructor() {
