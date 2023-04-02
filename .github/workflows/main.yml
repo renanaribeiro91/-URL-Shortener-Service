@@ -57,9 +57,8 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           cluster: encurtador-url-Cluster
-          service: encurtador-url-Service
+          service: encurtador-url-grupo
           image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          task-definition: arn:aws:ecs:sa-east-1:990734238442:task-definition/encurtador-url-grupo:1
           aws-region: sa-east-1
 
       
