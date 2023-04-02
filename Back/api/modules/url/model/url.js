@@ -1,14 +1,7 @@
-const { mongoose, Schema } = require('mongoose')
-const { Singleton } = require('simple-node-framework')
-const {
-  database: {
-    connections: {
-      mongodb: { app }
-    }
-  }
-} = Singleton
+const { database } = require('simple-node-framework').Singleton
+const mongoose = require('mongoose')
 
-const connection = app || mongoose
+const connection = database.connections?.mongodb?.app || mongoose
 
 const MODEL_NAME = 'URLS'
 
