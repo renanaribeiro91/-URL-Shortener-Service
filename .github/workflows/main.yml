@@ -53,6 +53,14 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Deploy to Amazon ECS
+        uses: aws-actions/amazon-ecs-deploy@v1
+        with:
+          cluster: encurtador-url-Cluster
+          service: encurtador-url-Service
+          image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          aws-region: sa-east-1
+
       
   build-and-deploy-frontend:
     runs-on: ubuntu-latest
