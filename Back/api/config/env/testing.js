@@ -30,12 +30,9 @@ module.exports = {
       name: 'Application',
       streams: [
         {
-          level: 'info',
-          type: 'rotating-file',
-          path: 'logs/{hostname}.log',
-          period: '1d',
-          count: 2
-        }
+          "level": "debug",
+          "stream": "process.stdout"
+      }
       ]
     }
   },
