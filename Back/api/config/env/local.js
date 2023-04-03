@@ -11,14 +11,14 @@ module.exports = {
   db: {
     mongodb: {
       app: {
-        url:'mongodb+srv://encurtador-url:encurtador-url@encurtador-url.z0dssrd.mongodb.net/test',
+        url: process.env.DB_MONGODB_HOST,
         options: {
           minPoolSize: 5,
           maxPoolSize: 10,
           useNewUrlParser: true,
           useUnifiedTopology: true
         },
-        name: 'test'
+        name: process.env.DB_MONGODB_NAME
       }
     }
   },
