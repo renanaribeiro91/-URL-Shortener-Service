@@ -79,9 +79,9 @@ class UrlService extends BaseService {
     const shortURL = this._generateShortURL(hash)
     console.log('bateu antes de criar')
 
-    await this.urlRepository.create({ fullURL, hash, shortURL })
+    const a = await this.urlRepository.create({ fullURL, hash, shortURL })
     console.log('bateu depois de criar')
-    return
+    return a
   }
 
   _generateShortURL(hash) {
