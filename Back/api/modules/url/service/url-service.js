@@ -18,7 +18,6 @@ class UrlService extends BaseService {
 
       return this._urlData(url)
     } catch (error) {
-
       return error
     }
   }
@@ -29,7 +28,6 @@ class UrlService extends BaseService {
     try {
       const urlExist = await this._getUrl({}, fullURL, generateEndPoint)
       if (urlExist) {
-
         return null
       }
 
@@ -37,7 +35,6 @@ class UrlService extends BaseService {
 
       return this._urlData(url)
     } catch (error) {
-    
       return error
     }
   }
@@ -46,16 +43,13 @@ class UrlService extends BaseService {
     try {
       const urlExist = await this._getUrl(hash)
       if (!urlExist) {
-
         return null
       }
 
       const url = await this.urlRepository.update({ hash, fullURL })
 
-
       return this._urlData(url)
     } catch (error) {
-
       return error
     }
   }
@@ -64,13 +58,11 @@ class UrlService extends BaseService {
     try {
       const urlExist = await this._getUrl(hash)
       if (!urlExist) {
-   
         return null
       }
 
       return this.urlRepository.delete(hash)
     } catch (error) {
-  
       return error
     }
   }
@@ -85,8 +77,11 @@ class UrlService extends BaseService {
   async _create(fullURL) {
     const hash = await this.hashService.generateHash()
     const shortURL = this._generateShortURL(hash)
+    console.log('bateu antes de criar')
 
-    return this.urlRepository.create({ fullURL, hash, shortURL })
+    await this.urlRepository.create({ fullURL, hash, shortURL })
+    console.log('bateu depois de criar')
+    return
   }
 
   _generateShortURL(hash) {
