@@ -11,7 +11,7 @@ module.exports = {
   db: {
     mongodb: {
       app: {
-        url: process.env.DB_MONGODB_HOST,
+        url: process.env.DB_MONGODB_HOST || 'mongodb+srv://encurtador-url:encurtador-url@encurtador-url.z0dssrd.mongodb.net/test',
         options: {
           minPoolSize: 5,
           maxPoolSize: 10,
