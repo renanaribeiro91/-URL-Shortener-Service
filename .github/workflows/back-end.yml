@@ -63,8 +63,12 @@ jobs:
             --output text
 
       - name: Update Lambda function with new image
-        if: steps.check-image-ecr.outputs.stdout == $IMAGE_TAG
+        if: "steps.check-image-ecr.outputs.stdout == env.IMAGE_TAG"
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: encurtador-url-node
+          IMAGE_TAG: ${{github.sha}}
         run: |
           aws lambda update-function-code \
             --function-name encurtador-url-function \
-            --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:latest
+           
