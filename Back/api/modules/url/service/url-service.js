@@ -77,11 +77,8 @@ class UrlService extends BaseService {
   async _create(fullURL) {
     const hash = await this.hashService.generateHash()
     const shortURL = this._generateShortURL(hash)
-    console.log('bateu antes de criar')
 
-    const a = await this.urlRepository.create({ fullURL, hash, shortURL })
-    console.log('bateu depois de criar')
-    return a
+    return await this.urlRepository.create({ fullURL, hash, shortURL })
   }
 
   _generateShortURL(hash) {

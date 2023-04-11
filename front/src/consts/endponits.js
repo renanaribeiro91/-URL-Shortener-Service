@@ -1,1 +1,1 @@
-export const endPonit = 'http://localhost:8091/api/url'
+export const endPonit = 'http://54.232.247.173:8091/api/url'
